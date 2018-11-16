@@ -26,7 +26,12 @@ public class HealingItem implements Item{
     return this.uses;
   }
   
-  public Boolean use(){
-    return false;
+  public Boolean use(Ship ship){
+    ship.setHP(ship.getHP + this.getHealAmount());
+    if(this.uses != -1) { this.uses--; }//if uses = -1, then infinite uses
+    if(this.uses == 0)
+    {
+      ship.Inventory.removeItem(this);
+    }
   }
 }

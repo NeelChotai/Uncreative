@@ -1,7 +1,5 @@
 package com.uncreative.game;
 
-import com.sun.tools.classfile.ConstantPool;
-
 public class Inventory {
     public Item[] items;
     private Integer size;

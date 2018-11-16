@@ -31,3 +31,8 @@ public class main extends ApplicationAdapter {
 		img.dispose();
 	}
 }
+/*
+
+If in combat, activeBuffs needs to be reset at the start of each turn to = just the collegeBuff
+
+ */
