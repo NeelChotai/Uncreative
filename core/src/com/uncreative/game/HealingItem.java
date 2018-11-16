@@ -4,7 +4,7 @@ public class HealingItem implements Item{
   private Integer uses;
   private Integer healAmount;
   
-  public void HealingItem(Integer heal, Integer worth, Integer xp, Integer uses){
+  public HealingItem(Integer heal, Integer worth, Integer xp, Integer uses){
     this.healAmount = heal;
     this.goldWorth = worth;
     this.xpRequired = xp;
