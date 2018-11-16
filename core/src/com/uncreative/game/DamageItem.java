@@ -1,4 +1,4 @@
-package com.uncreative.game
+package com.uncreative.game;
 
 public class DamageItem implements Item{
 	private Integer damageAmount;
