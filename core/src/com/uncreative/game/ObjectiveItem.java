@@ -1,6 +1,6 @@
 package com.uncreative.game;
 
-public class ObjectiveItem {
+public class ObjectiveItem implements Item{
 	private Objective objective;
 	private Integer goldWorth;
 	private Integer xpRequired;
