@@ -1,12 +1,14 @@
+package com.uncreative.game;
+
 public class HealingItem implements Item{
+  private Integer healAmount;
   private Integer goldWorth;
   private Integer xpRequired;
   private Integer uses;
-  private Integer healAmount;
   
-  public HealingItem(Integer heal, Integer worth, Integer xp, Integer uses){
+  public HealingItem(Integer heal, Integer gold, Integer xp, Integer uses){
     this.healAmount = heal;
-    this.goldWorth = worth;
+    this.goldWorth = gold;
     this.xpRequired = xp;
     this.uses = uses;
   }

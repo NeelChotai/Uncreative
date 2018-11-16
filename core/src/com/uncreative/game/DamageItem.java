@@ -1,11 +1,10 @@
 package com.uncreative.game;
-
 public class DamageItem implements Item{
 	private Integer damageAmount;
 	private Integer hitChance;
-	private Integer goldWorth;
-	private Integer xpRequired;
-	private Integer uses;
+    private Integer goldWorth;
+    private Integer xpRequired;
+    private Integer uses;
     
 	public DamageItem(Integer damage, Integer chance, Integer gold, Integer xp, Integer uses) {    
 		this.damageAmount = damage;
