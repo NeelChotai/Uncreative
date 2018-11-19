@@ -1,7 +1,7 @@
 package com.uncreative.game;
 
 public class Buff {
-	private String stat;
+	private String stat; //Valid stats: { "attack", "defense", "maxHP" }
 	private Integer amount;
 	
 	public Buff(String stat, Integer amount) {
