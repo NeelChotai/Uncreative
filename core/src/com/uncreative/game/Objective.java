@@ -19,7 +19,7 @@ public class Objective {
 	public Objective getPrerequisites() {
 		return this.prerequisites;
 	}
-	public Boolena getCompleted() {
+	public Boolean getCompleted() {
 		return this.completed;
 	}
 	public Integer getReward() {
