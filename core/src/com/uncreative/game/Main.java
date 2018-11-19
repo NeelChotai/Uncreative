@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Main extends ApplicationAdapter {
+	public static Location[][] map = new Location[128][128];
+
 	SpriteBatch batch;
 	Texture img;
 	
@@ -14,6 +16,7 @@ public class Main extends ApplicationAdapter {
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
+		setup(128);
 	}
 
 	@Override
@@ -30,9 +33,17 @@ public class Main extends ApplicationAdapter {
 		batch.dispose();
 		img.dispose();
 	}
+
+	public void setup(Integer size) {
+		for(int i = 0; i < size; i++) {
+			for(int j = 0; j < size; j++) {
+				this.map[i][j] = new Location(i, j);
+			}
+		}
+	}
 }
 /*
 
-If in combat, activeBuffs needs to be reset at the start of each turn to = just the collegeBuff
+-If in combat, activeBuffs needs to be reset at the start of each turn to = just the collegeBuff
 
  */
