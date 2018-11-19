@@ -9,7 +9,7 @@ public class Objective {
 	public Objective(String desc, Objective prereq, Integer reward) {
 		this.description = desc;
 		this.prequisites = prereq;
-		this.completed = false;
+		this.completed = False;
 		this.expReward = reward;
 	}
 	
@@ -24,5 +24,8 @@ public class Objective {
 	}
 	public Integer getReward() {
 		return this.expReward;
+	}
+	public void complete() {
+		this.completed = True;
 	}
 }
