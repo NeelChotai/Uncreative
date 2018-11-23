@@ -77,25 +77,48 @@ public class OtherShip implements Ship {
         Location prev = this.location;
         int[] loc = prev.getLocation();
         this.location.ship = null;
-        if ("N".equals(dir)) {
-            this.location =  Main.map[loc[0]][loc[1] + 1];
-        } else if ("NE".equals(dir)) {
-            this.location  = Main.map[loc[0] + 1][loc[1] + 1];
-        } else if ("E".equals(dir)) {
-            this.location = Main.map[loc[0] + 1][loc[1]];
-        } else if ("SE".equals(dir)) {
-            this.location = Main.map[loc[0] + 1][loc[1] - 1];
-        } else if ("S".equals(dir)) {
-            this.location = Main.map[loc[0]][loc[1] - 1];
-        } else if ("SW".equals(dir)) {
-            this.location = Main.map[loc[0] - 1][loc[1] - 1];
-        } else if ("W".equals(dir)) {
-            this.location = Main.map[loc[0] - 1][loc[1]];
-        } else if ("NW".equals(dir)) {
-            this.location = Main.map[loc[0] - 1][loc[1] + 1];
-        } else {
-            throw new InvalidParameterException();
+
+        switch (dir){
+            case "N":   this.location = Main.map[loc[0]][loc[1] + 1];
+                        break;
+            case "NE":  this.location  = Main.map[loc[0] + 1][loc[1] + 1];
+                        break;
+            case "E":   this.location = Main.map[loc[0] + 1][loc[1]];
+                        break;
+            case "SE":  this.location = Main.map[loc[0] + 1][loc[1] - 1];
+                        break;
+            case "S":   this.location = Main.map[loc[0]][loc[1] - 1];
+                        break;
+            case "SW":  this.location = Main.map[loc[0] - 1][loc[1] - 1];
+                        break;
+            case "W":   this.location = Main.map[loc[0] - 1][loc[1]];
+                        break;
+            case "NW":  this.location = Main.map[loc[0] - 1][loc[1] + 1];
+                        break;
+            default:    throw new InvalidParameterException();
+                        break;
         }
+
+//        if ("N".equals(dir)) {
+//            this.location =  Main.map[loc[0]][loc[1] + 1];
+//        } else if ("NE".equals(dir)) {
+//            this.location  = Main.map[loc[0] + 1][loc[1] + 1];
+//        } else if ("E".equals(dir)) {
+//            this.location = Main.map[loc[0] + 1][loc[1]];
+//        } else if ("SE".equals(dir)) {
+//            this.location = Main.map[loc[0] + 1][loc[1] - 1];
+//        } else if ("S".equals(dir)) {
+//            this.location = Main.map[loc[0]][loc[1] - 1];
+//        } else if ("SW".equals(dir)) {
+//            this.location = Main.map[loc[0] - 1][loc[1] - 1];
+//        } else if ("W".equals(dir)) {
+//            this.location = Main.map[loc[0] - 1][loc[1]];
+//        } else if ("NW".equals(dir)) {
+//            this.location = Main.map[loc[0] - 1][loc[1] + 1];
+//        } else {
+//            throw new InvalidParameterException();
+//        }
+        
         if(this.location.ship != null) {//Can't move inside another ship
             this.location = prev;
             this.location.ship = this;
