@@ -7,7 +7,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Main extends ApplicationAdapter {
-	public static Location[][] map = new Location[128][128];
+	public enum dir{
+		N, NE, E, SE, S, SW, W, NW
+	}
+	public static final int size = 128;
+	public static Location[][] map = new Location[size][size];
+
 
 	SpriteBatch batch;
 	Texture img;

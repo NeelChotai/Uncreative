@@ -73,31 +73,56 @@ public class OtherShip implements Ship {
         this.inBattle = target;
     }
 
-    public void move(String dir) {
+    public void move(Main.dir direction) {
+        if(this.inBattle != null) { return; }
         Location prev = this.location;
-        int[] loc = prev.getLocation();
+        int[] oldloc = prev.getLocation();
         this.location.ship = null;
-
-        switch (dir){
-            case "N":   this.location = Main.map[loc[0]][loc[1] + 1];
-                        break;
-            case "NE":  this.location  = Main.map[loc[0] + 1][loc[1] + 1];
-                        break;
-            case "E":   this.location = Main.map[loc[0] + 1][loc[1]];
-                        break;
-            case "SE":  this.location = Main.map[loc[0] + 1][loc[1] - 1];
-                        break;
-            case "S":   this.location = Main.map[loc[0]][loc[1] - 1];
-                        break;
-            case "SW":  this.location = Main.map[loc[0] - 1][loc[1] - 1];
-                        break;
-            case "W":   this.location = Main.map[loc[0] - 1][loc[1]];
-                        break;
-            case "NW":  this.location = Main.map[loc[0] - 1][loc[1] + 1];
-                        break;
+        int[] newloc = new int[2];
+        switch (direction){
+            case N:
+                newloc[0] = oldloc[0];
+                newloc[1] = oldloc[1] + 1;
+                break;
+            case NE:
+                newloc[0] = oldloc[0] + 1;
+                newloc[1] = oldloc[1] + 1;
+                break;
+            case E:
+                newloc[0] = oldloc[0] + 1;
+                newloc[1] = oldloc[1];
+                break;
+            case SE:
+                newloc[0] = oldloc[0] + 1;
+                newloc[1] = oldloc[1] - 1;
+                break;
+            case S:
+                newloc[0] = oldloc[0];
+                newloc[1] = oldloc[1] - 1;
+                break;
+            case SW:
+                newloc[0] = oldloc[0] - 1;
+                newloc[1] = oldloc[1] - 1;
+                break;
+            case W:
+                newloc[0] = oldloc[0] - 1;
+                newloc[1] = oldloc[1];
+                break;
+            case NW:
+                newloc[0] = oldloc[0] - 1;
+                newloc[1] = oldloc[1] + 1;
+                break;
             default:    throw new InvalidParameterException();
-                        break;
+                break;
         }
+        //Can't move out of bounds or inside another ship
+        if(this.location.ship != null || newloc[0] < 0 || newloc[0] > Main.size - 1 || newloc[1] < 0 || newloc[1] > Main.size - 1)
+        {
+            this.location = prev;
+        } else {
+            this.location = Main.map[newloc[0]][newloc[1]];
+        }
+        this.location.ship = this;
 
 //        if ("N".equals(dir)) {
 //            this.location =  Main.map[loc[0]][loc[1] + 1];
@@ -118,12 +143,6 @@ public class OtherShip implements Ship {
 //        } else {
 //            throw new InvalidParameterException();
 //        }
-        
-        if(this.location.ship != null) {//Can't move inside another ship
-            this.location = prev;
-            this.location.ship = this;
-        }
-        this.location.ship = this;
     }
 
 
