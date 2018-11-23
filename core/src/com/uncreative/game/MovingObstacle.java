@@ -15,16 +15,37 @@ public class MovingObstacle extends Obstacle{
         this.following = this.following && false;
     }
 
-    public void move(String direction){
-        this.location.obstacles.remove(this);
+    public void move(String dir){
+        Location prev = this.location;
+        int[] loc = prev.getLocation();
+        this.location.obstacle = null;
 
-        switch(direction){
-            case "up":      ;
-            case "down"     ;
-            case "left"     ;
-            case "right"    ;
-            default: throw new IllegalArgumentException("valid directions: 'up' 'down' 'left' 'right'");
+        switch (dir){
+            case "N":   this.location = Main.map[loc[0]][loc[1] + 1];
+                break;
+            case "NE":  this.location  = Main.map[loc[0] + 1][loc[1] + 1];
+                break;
+            case "E":   this.location = Main.map[loc[0] + 1][loc[1]];
+                break;
+            case "SE":  this.location = Main.map[loc[0] + 1][loc[1] - 1];
+                break;
+            case "S":   this.location = Main.map[loc[0]][loc[1] - 1];
+                break;
+            case "SW":  this.location = Main.map[loc[0] - 1][loc[1] - 1];
+                break;
+            case "W":   this.location = Main.map[loc[0] - 1][loc[1]];
+                break;
+            case "NW":  this.location = Main.map[loc[0] - 1][loc[1] + 1];
+                break;
+            default:    throw new InvalidParameterException();
+                break;
         }
+
+        if(this.location.obstacle != null) {//Can't move inside another ship
+            this.location = prev;
+            this.location.obstacle = this;
+        }
+        this.location.obstacle = this;
     }
 
     public void followShip(){
