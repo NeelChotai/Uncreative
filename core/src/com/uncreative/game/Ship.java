@@ -9,7 +9,7 @@ public interface Ship {
     public Integer getBaseDefence();
     public ArrayList<Buff> getActiveBuffs();
     public void setHP(Integer hp);
-    public void move(String direction);//Inside the game loop, location.ship.remove and newlocation.ship.add to be sorted
+    public void move(Main.dir direction);//Inside the game loop, location.ship.remove and newlocation.ship.add to be sorted
     public void attack();
     public void flee();
     public Boolean isInBattle();
