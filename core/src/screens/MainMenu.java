@@ -49,8 +49,7 @@ public class MainMenu extends PirateScreen {
         b_newGame.addListener(new ClickListener() {
            @Override
            public void clicked(InputEvent event, float x, float y) {
-               ping.play(Pirates.getVolume());
-               //Start New Game
+               Pirates.game.setScreen(new GameScreen(Pirates.game));
            }
         });
 

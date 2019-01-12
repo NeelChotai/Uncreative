@@ -26,12 +26,16 @@ public class HealingItem implements Item{
     return this.uses;
   }
 
-  public Boolean use(Ship ship){
-    ship.setHP(ship.getHP + this.getHealAmount());
+  public Boolean use(PlayerShip ship, Ship s){
+    if(s.getHP() == s.getMaxHP()) {
+      return false;
+    }
+    s.setHP(s.getHP() + this.getHealAmount());
     if(this.uses != -1) { this.uses--; }//if uses = -1, then infinite uses
     if(this.uses == 0)
     {
-      ship.Inventory.removeItem(this);
+      ship.inventory.items.remove(this);
     }
+    return true;
   }
 }

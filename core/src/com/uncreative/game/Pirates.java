@@ -6,10 +6,21 @@ import com.badlogic.gdx.audio.Music;
 import screens.MainMenu;
 
 public class Pirates extends Game {
+    public enum dir{
+        N, E, S, W
+    }
+    public static final int size = 128;
+    public static Location[][] map = new Location[size][size];
     private static float volume;
     public static int w;
     public static int h;
     public static Music music;
+    public static Game game;
+
+    public Pirates() {
+        this.game = this;
+    }
+
     @Override
     public void create() {
         Pirates.h = Gdx.app.getGraphics().getHeight();

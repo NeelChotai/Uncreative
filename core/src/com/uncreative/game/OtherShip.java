@@ -10,27 +10,27 @@ public class OtherShip implements Ship {
     private Integer maxHP;
     private Integer baseDamage;
     private Integer baseDefence;
-    private ArrayList<Buff> activeBuffs = new ArrayList<Buff>();
+    private ArrayList<Buff> activeBuffs;
     private Ship inBattle = null;
     public College collegeAllegiance;
-    public Inventory inventory;
     private Integer goldForPlunder;
     private Integer XPForPlunder;
     private Item[] itemsForPlunder;
     public Location location;
 
-    public OtherShip(Integer hp, Integer baseDamage, Integer baseDefence, College college, Inventory inv, Integer gold, Integer xp, Item[] items, Location location)
+    public OtherShip(Integer hp, Integer baseDamage, Integer baseDefence, College college, Integer gold, Integer xp, Item[] items, Location location)
     {
         this.hp = hp;
         this.maxHP = hp;
         this.baseDamage = baseDamage;
         this.baseDefence = baseDefence;
         this.collegeAllegiance = college;
-        this.inventory = inv;
         this.goldForPlunder = gold;
         this.XPForPlunder = xp;
         this.itemsForPlunder = items;
         this.location = location;
+        this.activeBuffs = new ArrayList<Buff>();
+        this.activeBuffs.addAll(college.getBuffs());
     }
 
     public Integer getHP() {
@@ -53,6 +53,14 @@ public class OtherShip implements Ship {
         return activeBuffs;
     }
 
+    public void removeBuff(Buff buff) {
+        this.activeBuffs.remove(buff);
+    }
+
+    public void addBuff(Buff buff) {
+        this.activeBuffs.add(buff);
+    }
+
     public College getCollegeAllegiance() {
         return this.collegeAllegiance;
     }
@@ -73,70 +81,71 @@ public class OtherShip implements Ship {
         this.inBattle = target;
     }
 
-    public void move(Main.dir direction) {
-        if(this.inBattle != null) { return; }
-        //Location prev = this.location;
-        //int[] oldloc = prev.getLocation();
-        //this.location.ship = null;
-        int[] newloc = new int[2];
+    public void move(Pirates.dir direction) {
+        if(this.inBattle != null) { System.out.println("Error: OtherShip tried to move in battle."); return; }//Can't move in battle
+
+        int[] location = this.location.getLocation();
         switch (direction){
             case N:
-                newloc[0] = oldloc[0];
-                newloc[1] = oldloc[1] + 1;
-                break;
-            case NE:
-                newloc[0] = oldloc[0] + 1;
-                newloc[1] = oldloc[1] + 1;
+                location[0] = location[0];
+                location[1] = location[1] + 1;
                 break;
             case E:
-                newloc[0] = oldloc[0] + 1;
-                newloc[1] = oldloc[1];
-                break;
-            case SE:
-                newloc[0] = oldloc[0] + 1;
-                newloc[1] = oldloc[1] - 1;
+                location[0] = location[0] + 1;
+                location[1] = location[1];
                 break;
             case S:
-                newloc[0] = oldloc[0];
-                newloc[1] = oldloc[1] - 1;
-                break;
-            case SW:
-                newloc[0] = oldloc[0] - 1;
-                newloc[1] = oldloc[1] - 1;
+                location[0] = location[0];
+                location[1] = location[1] - 1;
                 break;
             case W:
-                newloc[0] = oldloc[0] - 1;
-                newloc[1] = oldloc[1];
-                break;
-            case NW:
-                newloc[0] = oldloc[0] - 1;
-                newloc[1] = oldloc[1] + 1;
+                location[0] = location[0] - 1;
+                location[1] = location[1];
                 break;
             default:    throw new InvalidParameterException();
-                break;
         }
         //Can't move out of bounds or inside another ship
-        //if(this.location.ship != null || newloc[0] < 0 || newloc[0] > Main.size - 1 || newloc[1] < 0 || newloc[1] > Main.size - 1)
-        //{
-        //    this.location = prev;
-        //} else {
-        //    this.location = Main.map[newloc[0]][newloc[1]];
-        //}
-        //this.location.ship = this;
+        if(location[0] < 0 || location[0] > Pirates.size - 1 || location[1] < 0 || location[1] > Pirates.size - 1)
+        {
+            return;
+        }
+
+        Location newlocation = Pirates.map[location[0]][location[1]];
+        if(newlocation.ship != null){
+            if(newlocation.ship instanceof PlayerShip) {
+                ((PlayerShip) newlocation.ship).battleShip(this);
+            } else if(newlocation.ship.getCollegeAllegiance() != this.collegeAllegiance){
+                this.inBattle = newlocation.ship;
+                ((OtherShip) newlocation.ship).inBattle = this;
+                attack();
+            }
+        } else {
+            newlocation.ship = this;
+            this.location.ship = null;
+            this.location = newlocation;
+        }
     }
-
-
 
     public void attack() {
         Ship target = this.inBattle;
         int damage = this.baseDamage;
-        Iterator<Buff> iter = activeBuffs.iterator();
+
+        Iterator<Buff> iter = activeBuffs.iterator();//Check for damage buffs
         while(iter.hasNext()) {
             Buff buff = iter.next();
             if (buff.getString().equalsIgnoreCase("attack")) {
                 damage += buff.getAmount();
             }
         }
+
+        iter = target.getActiveBuffs().iterator();//Check target for defense buffs
+        while(iter.hasNext()){
+            Buff buff = iter.next();
+            if(buff.getString().equalsIgnoreCase("defense")) {
+                damage -= buff.getAmount();
+            }
+        }
+
         damage -= target.getBaseDefence();
         if(damage < 0) { damage = 0; }
         target.setHP(target.getHP() - damage);

@@ -33,17 +33,17 @@ public class DamageItem implements Item{
 		return this.uses;
 	}
 
-	public Boolean use(Ship ship, Ship target) {
+	public Boolean use(PlayerShip ship, Ship target) {
         if(this.uses != -1) { this.uses--; }//if uses = -1, then infinite uses
         if(this.uses == 0)
         {
-            ship.Inventory.removeItem(this);
+            ship.inventory.items.remove(this);
         }
         Random rand = new Random();
         Integer i = rand.nextInt(100);
-        if(i < this.getHitChance())//HIT
+        if(i < this.hitChance)//HIT
         {
-            target.setHP(target.getHP() - this.getDamage());
+            target.setHP(target.getHP() - this.getDamage());//Items ignore defense!
             return true;
         }
         else

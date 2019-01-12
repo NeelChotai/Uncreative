@@ -29,25 +29,21 @@ public class ObjectiveItem implements Item{
 		return this.uses;
 	}
 
-	public Boolean use(Ship ship) {
-		for(int i = 0; i < this.objective.prerequisites.length(); i++) {
-			if (!this.objective.prerequisites[i].getCompleted())//If not all prerequisites are completed, this objective can't be
+	public Boolean use(PlayerShip ship) {
+		Objective[] prerequisites = this.objective.getPrerequisites();
+		for(int i = 0; i < prerequisites.length; i++) {
+			if (!prerequisites[i].getCompleted())//If not all prerequisites are completed, this objective can't be
 			{
 				return false;
 			}
-			if (this.building.location == ship.location) {
-				if (this.uses != -1) {
-					this.uses--;
-				}//if uses = -1, then infinite uses
-				if (this.uses == 0) {
-					ship.Inventory.removeItem(this);
-				}
-				return true;
-			}
+		}
+		if (this.building.location == ship.location) {
+			ship.inventory.items.remove(this);
+			return true;
 		}
 	}
 
-	public Boolean use(Ship ship, Ship s)
+	public Boolean use(PlayerShip ship, Ship s)
 	{
 		return this.use(ship);
 	}

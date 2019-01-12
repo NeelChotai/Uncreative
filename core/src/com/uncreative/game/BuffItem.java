@@ -6,12 +6,12 @@ public class BuffItem implements Item {
     private Integer uses;
     public Buff buff;
 
-    public BuffItem(Integer gold, Integer xp, Integer uses)//, Buff buff)
+    public BuffItem(Integer gold, Integer xp, Integer uses, Buff buff)
     {
         this.goldWorth = gold;
         this.xpRequired = xp;
         this.uses = uses;
-        //this.buff = buff;
+        this.buff = buff;
     }
     public Integer getGold()
     {
@@ -26,23 +26,19 @@ public class BuffItem implements Item {
         return this.uses;
     }
 
-    public Boolean use(Ship ship)
+    public Boolean use(PlayerShip ship, Ship s)
     {
-        if(ship.getActiveBuffs().contains(this.buff))
+        if(s.getActiveBuffs().contains(this.buff))
         {
             return false;
         } else {
-            ship.activeBuffs.append(this.buff);
-            if(this.uses != -1) { this.uses--; }//if uses = -1, then infinite uses
+            ship.addBuff(this.buff);
+            if(this.uses == -1) { return true; }//if uses = -1, then infinite uses
+            this.uses--;
             if(this.uses == 0) {
-                ship.Inventory.removeItem(this);
+                ship.inventory.items.remove(this);
             }
             return true;
         }
-    }
-
-    public Boolean use(Ship ship, Ship s)
-    {
-        return this.use(ship);
     }
 }
