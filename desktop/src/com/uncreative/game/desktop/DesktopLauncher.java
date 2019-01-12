@@ -1,16 +1,16 @@
 package com.uncreative.game.desktop;
 
+import com.badlogic.gdx.Graphics.DisplayMode;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.uncreative.game.Main;
+import com.uncreative.game.Pirates;
 
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.fullscreen = false;
-		config.title = "Placeholder";
-		config.width = 1920;
-		config.height = 1080;
-		new LwjglApplication(new Main(), config);
+		DisplayMode mode = LwjglApplicationConfiguration.getDesktopDisplayMode();
+		config.setFromDisplayMode(mode);
+		config.title = "Pirates!";
+		new LwjglApplication(new Pirates(), config);
 	}
 }
