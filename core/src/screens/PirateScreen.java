@@ -1,10 +1,15 @@
 package screens;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.uncreative.game.Pirates;
 
-public class PirateScreen implements Screen {
+public abstract class PirateScreen implements Screen {
     Game game;
+    BitmapFont font = new BitmapFont(Gdx.files.internal("font.fnt"),
+                                    Gdx.files.internal("font.png"), false);
 
     public PirateScreen(Game game)
     {
@@ -23,7 +28,8 @@ public class PirateScreen implements Screen {
 
     @Override
     public void resize(int width, int height) {
-
+        Pirates.w = width;
+        Pirates.h = height;
     }
 
     @Override

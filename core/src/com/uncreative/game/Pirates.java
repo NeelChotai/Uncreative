@@ -25,7 +25,7 @@ public class Pirates extends Game {
     public void create() {
         Pirates.h = Gdx.app.getGraphics().getHeight();
         Pirates.w = Gdx.app.getGraphics().getWidth();
-        volume = 0.1f;
+        volume = 0f;
         music = Gdx.audio.newMusic(Gdx.files.internal("the-buccaneers-haul.mp3"));
         music.setLooping(true);
         music.setVolume(volume);
