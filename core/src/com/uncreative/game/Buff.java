@@ -13,7 +13,7 @@ public class Buff {
 		this.isInfinite = isInfinite;
 	}
 	
-	public String getString() {
+	public String getStat() {
 		return this.stat;
 	}
 	public Integer getAmount() {

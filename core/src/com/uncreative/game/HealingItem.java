@@ -5,12 +5,14 @@ public class HealingItem implements Item{
   private Integer goldWorth;
   private Integer xpRequired;
   private Integer uses;
+  private String name;
 
-  public HealingItem(Integer heal, Integer gold, Integer xp, Integer uses){
+  public HealingItem(Integer heal, Integer gold, Integer xp, Integer uses, String name){
     this.healAmount = heal;
     this.goldWorth = gold;
     this.xpRequired = xp;
     this.uses = uses;
+    this.name = name;
   }
 
   public Integer getHealAmount(){
@@ -38,4 +40,6 @@ public class HealingItem implements Item{
     }
     return true;
   }
+
+  public String getName() { return this.name; }
 }

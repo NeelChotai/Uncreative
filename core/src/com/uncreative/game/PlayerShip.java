@@ -1,5 +1,6 @@
 package com.uncreative.game;
 
+import java.lang.reflect.Array;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -14,7 +15,8 @@ public class PlayerShip implements Ship
     private Integer maxHP;
     private Integer baseDamage;
     private Integer baseDefence;
-    private College college;
+    private ArrayList<College> colleges;
+    private College initialCollege;
     private Ship inBattle;
     private ArrayList<Buff> buffs;
     public Inventory inventory;
@@ -27,12 +29,14 @@ public class PlayerShip implements Ship
         this.maxHP = maxHP;
         this.baseDamage = baseDamage;
         this.baseDefence = baseDefence;
-        this.college = college;
+        this.colleges = new ArrayList<College>();
+        this.colleges.add(college);
+        this.initialCollege = college;
         this.goldAvailable = gold;
         this.totalGoldEarned = gold;
         this.XP = xp;
         this.buffs = new ArrayList<Buff>();
-        this.buffs.add(college.getBuff());
+        this.buffs.addAll(college.getBuffs());
         for(Item item : items) { inventory.addItem(item); }
         this.location = location;
     }
@@ -64,16 +68,24 @@ public class PlayerShip implements Ship
 
     public void addBuff(Buff buff) {
         this.buffs.add(buff);
+        if(buff.getStat().equals("maxHP")) {
+            this.maxHP += buff.getAmount();
+            this.currentHP += buff.getAmount();
+        }
     }
 
     public void removeBuff(Buff buff){
         this.buffs.remove(buff);
+        if(buff.getStat() == "maxHP") {
+            this.maxHP -= buff.getAmount();
+            setHP(this.currentHP);//Fixes the potential problem of HP > maxHP
+        }
     }
 
     public Boolean isInBattle() { return this.inBattle != null; }
 
     public College getCollegeAllegiance() {
-        return this.college;
+        return this.initialCollege;
     }
 
     public void setHP(Integer hp) {
@@ -134,7 +146,7 @@ public class PlayerShip implements Ship
         Iterator<Buff> iter = buffs.iterator();//Check for damage buffs
         while(iter.hasNext()) {
             Buff buff = iter.next();
-            if (buff.getString().equalsIgnoreCase("attack")) {
+            if (buff.getStat().equalsIgnoreCase("attack")) {
                 damage += buff.getAmount();
             }
         }
@@ -142,7 +154,7 @@ public class PlayerShip implements Ship
         iter = target.getActiveBuffs().iterator();//Check target for defense buffs
         while(iter.hasNext()){
             Buff buff = iter.next();
-            if(buff.getString().equalsIgnoreCase("defense")) {
+            if(buff.getStat().equalsIgnoreCase("defense")) {
                 damage -= buff.getAmount();
             }
         }

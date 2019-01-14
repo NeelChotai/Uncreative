@@ -6,8 +6,9 @@ public class ObjectiveItem implements Item{
 	private Integer xpRequired;
 	private Integer uses;
 	private Building building;
+	private String name;
 
-	public ObjectiveItem(Objective objective, Integer gold, Integer xp, Integer uses, Building building) {
+	public ObjectiveItem(Objective objective, Integer gold, Integer xp, Integer uses, Building building, String name) {
 		this.objective = objective;
 		this.goldWorth = gold;
 		this.xpRequired = xp;
@@ -40,11 +41,18 @@ public class ObjectiveItem implements Item{
 		if (this.building.location == ship.location) {
 			ship.inventory.items.remove(this);
 			return true;
+		} else {
+			return false;
 		}
 	}
 
 	public Boolean use(PlayerShip ship, Ship s)
 	{
+		System.out.println("ObjectiveItem.use(Ship, Ship) is deprecated. Use ObjectiveItem.use(Ship)");
 		return this.use(ship);
+	}
+
+	public String getName() {
+		return this.name;
 	}
 }

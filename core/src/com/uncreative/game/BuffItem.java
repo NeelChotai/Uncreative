@@ -5,13 +5,15 @@ public class BuffItem implements Item {
     private Integer xpRequired;
     private Integer uses;
     public Buff buff;
+    private String name;
 
-    public BuffItem(Integer gold, Integer xp, Integer uses, Buff buff)
+    public BuffItem(Integer gold, Integer xp, Integer uses, Buff buff, String name)
     {
         this.goldWorth = gold;
         this.xpRequired = xp;
         this.uses = uses;
         this.buff = buff;
+        this.name = name;
     }
     public Integer getGold()
     {
@@ -40,5 +42,9 @@ public class BuffItem implements Item {
             }
             return true;
         }
+    }
+
+    public String getName(){
+        return this.name;
     }
 }

@@ -113,8 +113,15 @@ public class OtherShip implements Ship {
         Location newlocation = Pirates.map[location[0]][location[1]];
         if(newlocation.ship != null){
             if(newlocation.ship instanceof PlayerShip) {
-                ((PlayerShip) newlocation.ship).battleShip(this);
+                if(this.getCollegeAllegiance().getHostile()) {
+                    ((PlayerShip) newlocation.ship).battleShip(this);
+                } else {
+                    return;//Friendly ship, don't move.
+                }
             } else if(newlocation.ship.getCollegeAllegiance() != this.collegeAllegiance){
+                if(((OtherShip) newlocation.ship).isInBattle()) {
+                    return;// Battles with > 2 ships are not supported.
+                }
                 this.inBattle = newlocation.ship;
                 ((OtherShip) newlocation.ship).inBattle = this;
                 attack();
@@ -133,7 +140,7 @@ public class OtherShip implements Ship {
         Iterator<Buff> iter = activeBuffs.iterator();//Check for damage buffs
         while(iter.hasNext()) {
             Buff buff = iter.next();
-            if (buff.getString().equalsIgnoreCase("attack")) {
+            if (buff.getStat().equalsIgnoreCase("attack")) {
                 damage += buff.getAmount();
             }
         }
@@ -141,7 +148,7 @@ public class OtherShip implements Ship {
         iter = target.getActiveBuffs().iterator();//Check target for defense buffs
         while(iter.hasNext()){
             Buff buff = iter.next();
-            if(buff.getString().equalsIgnoreCase("defense")) {
+            if(buff.getStat().equalsIgnoreCase("defense")) {
                 damage -= buff.getAmount();
             }
         }

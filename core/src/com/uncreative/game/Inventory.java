@@ -40,6 +40,10 @@ public class Inventory {
         }
     }
 
+    public void removeItem(Item item) {
+        this.items.remove(item);
+    }
+
     public Integer getNoOfItems() {
         return this.items.size();
     }
