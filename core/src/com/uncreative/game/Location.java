@@ -7,6 +7,7 @@ public class Location {
     private int y;
     public Ship ship;
     public ArrayList<Obstacle> obstacles;
+    public Building building;
 
     public Location(int x, int y) {
         this.x = x;

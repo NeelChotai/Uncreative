@@ -8,13 +8,15 @@ public class DamageItem implements Item{
     private Integer goldWorth;
     private Integer xpRequired;
     private Integer uses;
+    private String name;
 
-	public DamageItem(Integer damage, Integer chance, Integer gold, Integer xp, Integer uses) {
+	public DamageItem(Integer damage, Integer chance, Integer gold, Integer xp, Integer uses, String name) {
 		this.damageAmount = damage;
 		this.hitChance = chance;
 		this.goldWorth = gold;
 		this.xpRequired = xp;
 		this.uses = uses;
+		this.name = name;
 	}
 
 	public Integer getDamage() {
@@ -50,5 +52,9 @@ public class DamageItem implements Item{
         {
             return false;
         }
+	}
+
+	public String getName() {
+		return this.name;
 	}
 }

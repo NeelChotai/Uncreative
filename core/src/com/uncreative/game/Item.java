@@ -4,4 +4,5 @@ public interface Item {
     public Integer getXP();
     public Integer usesLeft();
     public Boolean use(PlayerShip ship, Ship target);
+    public String getName();
 }
