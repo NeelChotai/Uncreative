@@ -60,7 +60,7 @@ public class GameScreen extends PirateScreen{
         tiledMap.dispose();
     }
 
-    public void setCameraToPlayer() {
+    private void setCameraToPlayer() {
         camera.position.x = player.location.getLocation()[0]*properties.get("tilewidth", Integer.class);
         camera.position.y = player.location.getLocation()[1]*properties.get("tileheight", Integer.class);
     }
