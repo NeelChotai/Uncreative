@@ -11,6 +11,7 @@ public class Department implements Building{
         this.name = name;
         this.healCost = healCost;
         this.upgradeStatCost = upgradeStatCost;
+        inventory = new Inventory(512);
         for(Item item : items) {inventory.addItem(item); }
     }
 
@@ -65,5 +66,9 @@ public class Department implements Building{
         ship.setGoldAvailable(ship.getGoldAvailable() - (amount * this.healCost));
         ship.setHP(ship.getHP() + amount);
         return true;
+    }
+
+    public Integer getHealCost() {
+        return this.healCost;
     }
 }

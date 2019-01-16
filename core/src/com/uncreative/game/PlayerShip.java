@@ -104,8 +104,8 @@ public class PlayerShip implements Ship
         this.currentHP = hp;
     }
 
-    public void move(Pirates.dir direction) {
-        if(this.inBattle != null) { System.out.println("Error: OtherShip tried to move in battle."); return; }//Can't move in battle
+    public Boolean move(Pirates.dir direction) {
+        if(this.inBattle != null) { System.out.println("Error: OtherShip tried to move in battle."); return false; }//Can't move in battle
 
         int[] location = this.location.getLocation();
         switch (direction){
@@ -123,20 +123,33 @@ public class PlayerShip implements Ship
                 break;
             default:    throw new InvalidParameterException();
         }
+        if(location[0] < 0 || location[0] > Pirates.size - 1 || location[1] < 0 || location[1] > Pirates.size - 1) {
+            return false;
+        }
         Location newlocation = Pirates.map[location[0]][location[1]];
         //Can't move out of bounds or inside another ship
-        if(newlocation.ship != null || location[0] < 0 || location[0] > Pirates.size - 1 || location[1] < 0 || location[1] > Pirates.size - 1)
+        if(newlocation.ship != null)
         {
             battleShip((OtherShip) newlocation.ship);
+            return false;
+        } else  if(newlocation.building instanceof College){
+            attackCollege((College) newlocation.building);
+            return false;
         } else {
+            for (Obstacle obstacle : newlocation.obstacles) {
+                this.setHP(this.getHP() - obstacle.getDamage());
+            }
+            newlocation.ship = this;
+            this.location.ship = null;
             this.location = newlocation;
         }
-        this.location.ship = this;
+        return true;
     }
 
     public void battleShip(OtherShip target)
     {
-        this.inBattle = target;//Do some UI Stuff??
+        this.inBattle = target;//Do some UI Stuff?
+        target.setInBattle(this);
     }
 
     public void attack() {
@@ -169,12 +182,14 @@ public class PlayerShip implements Ship
     }
 
     public void flee() {
-
+        if(this.isInBattle()) {
+            this.inBattle.flee();
+        }
+        this.inBattle = null;
     }
 
     private Boolean startMinigame()
     {
-
-        return true; //init
+        return true;
     }
 }

@@ -68,6 +68,9 @@ public class OtherShip implements Ship {
     public void setHP(Integer hp) {
         if(hp > this.maxHP) {
             this.hp = this.maxHP;
+        } else  if(hp <= 0){
+            this.hp = hp;
+            this.die();
         } else {
             this.hp = hp;
         }
@@ -81,9 +84,8 @@ public class OtherShip implements Ship {
         this.inBattle = target;
     }
 
-    public void move(Pirates.dir direction) {
-        if(this.inBattle != null) { System.out.println("Error: OtherShip tried to move in battle."); return; }//Can't move in battle
-
+    public Boolean move(Pirates.dir direction) {
+        if(this.inBattle != null) { System.out.println("Error: OtherShip tried to move in battle."); return false; }//Can't move in battle
         int[] location = this.location.getLocation();
         switch (direction){
             case N:
@@ -107,7 +109,7 @@ public class OtherShip implements Ship {
         //Can't move out of bounds or inside another ship
         if(location[0] < 0 || location[0] > Pirates.size - 1 || location[1] < 0 || location[1] > Pirates.size - 1)
         {
-            return;
+            return false;
         }
 
         Location newlocation = Pirates.map[location[0]][location[1]];
@@ -115,22 +117,29 @@ public class OtherShip implements Ship {
             if(newlocation.ship instanceof PlayerShip) {
                 if(this.getCollegeAllegiance().getHostile()) {
                     ((PlayerShip) newlocation.ship).battleShip(this);
+                    return false;
                 } else {
-                    return;//Friendly ship, don't move.
+                    return false;//Friendly ship, don't move.
                 }
             } else if(newlocation.ship.getCollegeAllegiance() != this.collegeAllegiance){
                 if(((OtherShip) newlocation.ship).isInBattle()) {
-                    return;// Battles with > 2 ships are not supported.
+                    return false;// The other ship is busy
                 }
                 this.inBattle = newlocation.ship;
                 ((OtherShip) newlocation.ship).inBattle = this;
                 attack();
             }
+        } else if(newlocation.building != null) {
+            return false;
         } else {
+            for(Obstacle obstacle : newlocation.obstacles) {
+                this.setHP(this.getHP() - obstacle.getDamage());
+            }
             newlocation.ship = this;
             this.location.ship = null;
             this.location = newlocation;
         }
+        return true;
     }
 
     public void attack() {
@@ -158,6 +167,17 @@ public class OtherShip implements Ship {
         target.setHP(target.getHP() - damage);
     }
     public void flee() {
+        if(this.isInBattle()) {
+            this.inBattle.flee();
+        }
         this.inBattle = null;
+    }
+
+    public void die() {
+        this.location.ship = null;
+        this.collegeAllegiance.ships.remove(this);
+        if(this.isInBattle()) {
+            this.flee();
+        }
     }
 }

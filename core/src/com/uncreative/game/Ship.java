@@ -11,7 +11,7 @@ public interface Ship {
     public void removeBuff(Buff buff);
     public void addBuff(Buff buff);
     public void setHP(Integer hp);
-    public void move(Pirates.dir direction);//Inside the game loop, location.ship.remove and newlocation.ship.add to be sorted
+    public Boolean move(Pirates.dir direction);//Inside the game loop, location.ship.remove and newlocation.ship.add to be sorted
     public void attack();
     public void flee();
     public Boolean isInBattle();

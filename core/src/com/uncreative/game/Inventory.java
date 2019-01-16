@@ -30,7 +30,7 @@ public class Inventory {
 
     public void addItem(Item item)
     {
-        if(this.getNoOfItems() >= this.getSize())
+        if(this.getNoOfItems() >= this.getSize() )
         {
             throw new IndexOutOfBoundsException("The inventory is already full!");
         }
