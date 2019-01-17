@@ -42,7 +42,7 @@ public class GameScreen extends PirateScreen{
         Buff Goodrickebuff1 = new Buff("attack", 1, 1, true);
         ArrayList<Buff>  goodrickeBuffs = new ArrayList<Buff>();
         goodrickeBuffs.add(Goodrickebuff1);
-        College goodricke = new College("Goodricke",100, 100, true, goodrickeBuffs);
+        College goodricke = new College("Goodricke", 100,100, 100, true, goodrickeBuffs);
         player = new PlayerShip(10, 10, 5, 2, goodricke, 1000, 0, new Item[0], Pirates.map[2][2]);
     }
 

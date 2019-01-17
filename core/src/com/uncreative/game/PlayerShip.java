@@ -37,7 +37,8 @@ public class PlayerShip implements Ship
         this.XP = xp;
         this.buffs = new ArrayList<Buff>();
         this.buffs.addAll(college.getBuffs());
-        for(Item item : items) { inventory.addItem(item); }
+        this.inventory = new Inventory(16);
+        for(Item item : items) { this.inventory.addItem(item); }
         this.location = location;
     }
 
@@ -149,6 +150,10 @@ public class PlayerShip implements Ship
     public void battleShip(OtherShip target)
     {
         this.inBattle = target;//Do some UI Stuff?
+        College enemyCollege = this.inBattle.getCollegeAllegiance();
+        if(!enemyCollege.getHostile()) {
+            enemyCollege.toggleHostile();
+        }
         target.setInBattle(this);
     }
 
@@ -178,7 +183,17 @@ public class PlayerShip implements Ship
     }
 
     public void attackCollege(College college) {
+        int damage = this.baseDamage;
 
+        Iterator<Buff> iter = buffs.iterator();//Check for damage buffs
+        while(iter.hasNext()) {
+            Buff buff = iter.next();
+            if (buff.getStat().equalsIgnoreCase("attack")) {
+                damage += buff.getAmount();
+            }
+        }
+
+        college.setHP(college.getHP() - damage);
     }
 
     public void flee() {

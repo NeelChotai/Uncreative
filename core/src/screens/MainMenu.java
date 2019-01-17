@@ -19,13 +19,15 @@ import com.uncreative.game.Pirates;
 
 public class MainMenu extends PirateScreen {
     private Image background;
-    private TextureRegionDrawable newGame;
+    private TextureRegionDrawable button;
     private TextureRegionDrawable t_volume;
     private Stage stage;
     private TextButton b_newGame;
     private TextButton.TextButtonStyle b_newGameStyle;
     private TextButton b_volume;
     private TextButton.TextButtonStyle b_volumeStyle;
+    private TextButton b_quit;
+    private TextButton.TextButtonStyle b_quitStyle;
     public final Sound ping = Gdx.audio.newSound(Gdx.files.internal("Ping.mp3"));
     private BitmapFont font = super.font;
     private Label title;
@@ -41,16 +43,17 @@ public class MainMenu extends PirateScreen {
         titleStyle = new Label.LabelStyle();
         titleStyle.font = font;
         titleStyle.fontColor = Color.BROWN;
-        title = new Label("Pirates!", titleStyle);
+        title = new Label("York Pirates!", titleStyle);
         title.setFontScale(5f);
         title.setHeight(title.getPrefHeight());
         title.setWidth(title.getPrefWidth());
         title.setPosition(Pirates.w/2f, Pirates.h*0.8f, Align.center);
 
-        newGame = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("button.png"))));
+        button = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("button.png"))));
+
         b_newGameStyle = new TextButton.TextButtonStyle();
-        b_newGameStyle.up = newGame;
-        b_newGameStyle.down = b_newGameStyle.up;
+        b_newGameStyle.up = button;
+        b_newGameStyle.down = button;
         b_newGameStyle.font = font;
         b_newGame = new TextButton("Play!", b_newGameStyle);
         b_newGame.setTransform(true);
@@ -67,10 +70,9 @@ public class MainMenu extends PirateScreen {
         b_newGame.getLabel().setFontScale(0.25f);
 
 
-        t_volume = new TextureRegionDrawable(new TextureRegion(new Texture(Gdx.files.internal("button.png"))));
         b_volumeStyle = new TextButton.TextButtonStyle();
-        b_volumeStyle.up = t_volume;
-        b_volumeStyle.down = t_volume;
+        b_volumeStyle.up = button;
+        b_volumeStyle.down = button;
         b_volumeStyle.font = font;
         b_volume = new TextButton("", b_volumeStyle);
         b_volume.setText("Sound: " + Pirates.getVolume() * 2);
@@ -78,7 +80,7 @@ public class MainMenu extends PirateScreen {
         b_volume.getLabel().setFontScale(0.2f);
         b_volume.setPosition(0, 0, Align.bottomLeft);
         b_volume.setTransform(true);
-        b_volume.setScale(3f);
+        b_volume.setScale(Pirates.h/360f);
         b_volume.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
@@ -90,10 +92,29 @@ public class MainMenu extends PirateScreen {
             }
         });
 
+
+        b_quitStyle = new TextButton.TextButtonStyle();
+        b_quitStyle.up = button;
+        b_quitStyle.down = button;
+        b_quitStyle.font = font;
+        b_quit = new TextButton("Quit", b_quitStyle);
+        b_quit.setTransform(true);
+        b_quit.setScale(Pirates.h/360f);
+        b_quit.setOrigin(Align.topRight);
+        b_quit.setPosition(Pirates.w, Pirates.h, Align.topRight);
+        b_quit.getLabel().setFontScale(0.25f);
+        b_quit.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.exit();
+            }
+        });
+
         stage.addActor(background);
         stage.addActor(title);
         stage.addActor(b_newGame);
         stage.addActor(b_volume);
+        stage.addActor(b_quit);
         Gdx.input.setInputProcessor(stage);
     }
 
