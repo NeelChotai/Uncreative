@@ -60,7 +60,7 @@ public class Department implements Building{
         if(amount > (ship.getMaxHP() - ship.getHP())) {
             amount = ship.getMaxHP() - ship.getHP();
         }
-        if(ship.getGoldAvailable() < amount * this.healCost) {
+        if(ship.getGoldAvailable() < amount * this.healCost || amount <= 0) {
             return false;
         }
         ship.setGoldAvailable(ship.getGoldAvailable() - (amount * this.healCost));
