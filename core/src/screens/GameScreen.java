@@ -82,8 +82,9 @@ public class GameScreen extends PirateScreen{
         goodricke = new College("Goodricke", 100,100, 100, true, goodrickeBuffs, Pirates.map[10][10]);
         player = new PlayerShip(10, 10, 5, 2, goodricke, 1000, 0, new Item[0], Pirates.map[5][5]);
         playerSprite = playerSprite_right;
-        moveShip(player, Pirates.dir.E, playerSprites);
-        moveShip(player, Pirates.dir.W, playerSprites);
+        playerSprite.setSize((float) properties.get("tilewidth", Integer.class),
+                (float) properties.get("tileheight", Integer.class));
+        playerSprite.setPosition(player.location.getLocation()[0]*properties.get("tilewidth", Integer.class) + xoffset, player.location.getLocation()[1]*properties.get("tileheight", Integer.class) + yoffset);
 
         inputMultiplexer = new InputMultiplexer();
         inputProcessor = new InputProcessor() {
@@ -187,6 +188,7 @@ public class GameScreen extends PirateScreen{
         playerSprite.setSize((float) properties.get("tilewidth", Integer.class),
                 (float) properties.get("tileheight", Integer.class));
         playerSprite.setPosition(player.location.getLocation()[0]*properties.get("tilewidth", Integer.class) + xoffset, player.location.getLocation()[1]*properties.get("tileheight", Integer.class) + yoffset);
+        player.addXP(10);
     }
 
     private void generateUI() {
