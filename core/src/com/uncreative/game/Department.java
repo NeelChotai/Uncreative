@@ -11,7 +11,7 @@ public class Department implements Building{
         this.name = name;
         this.healCost = healCost;
         this.upgradeStatCost = upgradeStatCost;
-        inventory = new Inventory(512);
+        this.inventory = new Inventory(512);
         for(Item item : items) {inventory.addItem(item); }
     }
 
