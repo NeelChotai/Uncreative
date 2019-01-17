@@ -1,17 +1,17 @@
 package com.uncreative.game;
 
+import javax.print.attribute.standard.MediaSize;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class OtherShip implements Ship {
-    private String[] dir = {"N", "NE", "E", "SE", "S", "SW", "W", "NW"};
     private Integer hp;
     private Integer maxHP;
     private Integer baseDamage;
     private Integer baseDefence;
     private ArrayList<Buff> activeBuffs;
-    private Ship inBattle = null;
+    public Ship inBattle = null;
     public College collegeAllegiance;
     private Integer goldForPlunder;
     private Integer XPForPlunder;
@@ -64,6 +64,12 @@ public class OtherShip implements Ship {
     public College getCollegeAllegiance() {
         return this.collegeAllegiance;
     }
+
+    public Integer getGold() { return this.goldForPlunder; }
+
+    public Integer getXP() { return this.XPForPlunder; }
+
+    public Item[] getItems() { return this.itemsForPlunder; }
 
     public void setHP(Integer hp) {
         if(hp > this.maxHP) {
@@ -167,8 +173,10 @@ public class OtherShip implements Ship {
         target.setHP(target.getHP() - damage);
     }
     public void flee() {
-        if(this.isInBattle()) {
-            this.inBattle.flee();
+        if(this.inBattle instanceof PlayerShip) {
+            ((PlayerShip)this.inBattle).inBattle = null;
+        } else if(this.inBattle instanceof OtherShip) {
+            ((OtherShip) this.inBattle).inBattle = null;
         }
         this.inBattle = null;
     }
@@ -178,11 +186,18 @@ public class OtherShip implements Ship {
         this.collegeAllegiance.ships.remove(this);
         if(this.isInBattle()) {
             if (this.inBattle instanceof PlayerShip) {
+                PlayerShip player = (PlayerShip) this.inBattle;
                 for (Item item : this.itemsForPlunder) {
-                    ((PlayerShip) this.inBattle).inventory.addItem(item);
+                    player.inventory.addItem(item);
                 }
+                player.addXP(this.XPForPlunder);
+                player.setGoldAvailable(player.getGoldAvailable() + this.goldForPlunder);
+                player.inBattle = null;
+            } else if(this.inBattle instanceof OtherShip) {
+                OtherShip ship = (OtherShip) this.inBattle;
+                ship.inBattle = null;
             }
-
+            this.inBattle = null;
         }
     }
 }

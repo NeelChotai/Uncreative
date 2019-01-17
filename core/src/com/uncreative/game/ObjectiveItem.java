@@ -38,7 +38,7 @@ public class ObjectiveItem implements Item{
 				return false;
 			}
 		}
-		if (this.building.location == ship.location) {
+		if (this.building.location == ship.location && this.xpRequired <= ship.getXP()) {
 			ship.inventory.items.remove(this);
 			return true;
 		} else {

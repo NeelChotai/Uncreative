@@ -1,5 +1,6 @@
 package com.uncreative.game;
 
+import javax.print.attribute.standard.MediaSize;
 import java.lang.reflect.Array;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
@@ -17,7 +18,7 @@ public class PlayerShip implements Ship
     private Integer baseDefence;
     private ArrayList<College> colleges;
     private College initialCollege;
-    private Ship inBattle;
+    public Ship inBattle;
     private ArrayList<Buff> buffs;
     public Inventory inventory;
     public Location location;
@@ -91,6 +92,10 @@ public class PlayerShip implements Ship
 
     public void setHP(Integer hp) {
         if(hp <= 0){
+            if(this.isInBattle()) {
+                ((OtherShip)this.inBattle).inBattle = null;
+                this.inBattle = null;
+            }
             if(startMinigame()){
                 hp = 1;
             }
@@ -179,10 +184,8 @@ public class PlayerShip implements Ship
 
         damage -= target.getBaseDefence();
         if(damage < 0) { damage = 0; }
-        target.setHP(target.getHP() - damage);
-        if(!this.isInBattle()) {
 
-        }
+        target.setHP(target.getHP() - damage);
     }
 
     public void attackCollege(College college) {
@@ -201,7 +204,7 @@ public class PlayerShip implements Ship
 
     public void flee() {
         if(this.isInBattle()) {
-            this.inBattle.flee();
+            ((OtherShip)this.inBattle).inBattle = null;
         }
         this.inBattle = null;
     }

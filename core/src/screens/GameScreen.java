@@ -15,13 +15,13 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.uncreative.game.*;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class GameScreen extends PirateScreen{
     TiledMap tiledMap;
     TiledMapRenderer mapRenderer;
     OrthographicCamera camera;
     MapProperties properties;
-    PlayerShip player;
     Texture ship_side;
     Texture ship_down;
     Texture ship_up;
@@ -34,7 +34,9 @@ public class GameScreen extends PirateScreen{
     float xoffset;
     float yoffset;
 
-    College goodricke;
+    PlayerShip player;
+    ArrayList<College> colleges;
+    ArrayList<Obstacle> obstacles;
 
     public GameScreen(Game game) {
         super(game);
@@ -76,10 +78,13 @@ public class GameScreen extends PirateScreen{
 
         final Sprite[] playerSprites = {playerSprite_up, playerSprite_right, playerSprite_down, playerSprite_left};
 
+        colleges = new ArrayList<College>();
+        obstacles = new ArrayList<Obstacle>();
         Buff goodrickebuff1 = new Buff("attack", 1, 1, true);
         ArrayList<Buff>  goodrickeBuffs = new ArrayList<Buff>();
         goodrickeBuffs.add(goodrickebuff1);
-        goodricke = new College("Goodricke", 100,100, 100, true, goodrickeBuffs, Pirates.map[10][10]);
+        College goodricke = new College("Goodricke", 100,100, 100, true, goodrickeBuffs, Pirates.map[10][10]);
+        colleges.add(goodricke);
         player = new PlayerShip(10, 10, 5, 2, goodricke, 1000, 0, new Item[0], Pirates.map[5][5]);
         playerSprite = playerSprite_right;
         playerSprite.setSize((float) properties.get("tilewidth", Integer.class),
@@ -189,9 +194,84 @@ public class GameScreen extends PirateScreen{
                 (float) properties.get("tileheight", Integer.class));
         playerSprite.setPosition(player.location.getLocation()[0]*properties.get("tilewidth", Integer.class) + xoffset, player.location.getLocation()[1]*properties.get("tileheight", Integer.class) + yoffset);
         player.addXP(10);
+        otherShipActions();
+        tickBuffDurations(player);
+        for(Obstacle obstacle : obstacles) {
+            if(obstacle instanceof MovingObstacle) {
+                MovingObstacle moving = (MovingObstacle) obstacle;
+                Random random = new Random();
+                if(random.nextInt(10) == 0) {
+                    moving.toggleFollowing();
+                }
+                if(moving.getFollowing()) {
+                    moving.followShip(player);
+                } else {
+                    switch(random.nextInt(5)) {
+                        case 0:
+                            moving.move(Pirates.dir.N);
+                            break;
+                        case 1:
+                            moving.move(Pirates.dir.E);
+                            break;
+                        case 2:
+                            moving.move(Pirates.dir.S);
+                            break;
+                        case 3:
+                            moving.move(Pirates.dir.W);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
     }
 
     private void generateUI() {
         ui = new Stage();
+    }
+
+    private void otherShipActions() {
+        for(College college : colleges) {
+            for(OtherShip othership : college.ships) {
+                if(othership.isInBattle()) {
+                    othership.attack();
+                } else {
+                    Random random = new Random();
+                    int num = random.nextInt(5);
+                    switch(num) {
+                        case 0:
+                            othership.move(Pirates.dir.N);
+                            break;
+                        case 1:
+                            othership.move(Pirates.dir.E);
+                            break;
+                        case 2:
+                            othership.move(Pirates.dir.S);
+                            break;
+                        case 3:
+                            othership.move(Pirates.dir.W);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+                tickBuffDurations(othership);
+
+            }
+        }
+    }
+
+    private void tickBuffDurations(Ship ship) {
+        for(Buff buff:ship.getActiveBuffs()) {
+            if(buff.isInfinite()) {
+                continue;
+            } else {
+                buff.duration--;
+                if(buff.duration <= 0) {
+                    ship.removeBuff(buff);
+                }
+            }
+        }
     }
 }
