@@ -107,7 +107,7 @@ public class OtherShip implements Ship {
             default:    throw new InvalidParameterException();
         }
         //Can't move out of bounds or inside another ship
-        if(location[0] < 0 || location[0] > Pirates.size - 1 || location[1] < 0 || location[1] > Pirates.size - 1)
+        if(location[0] < 0 || location[0] > Pirates.map.length - 1 || location[1] < 0 || location[1] > Pirates.map[0].length - 1)
         {
             return false;
         }
@@ -177,7 +177,12 @@ public class OtherShip implements Ship {
         this.location.ship = null;
         this.collegeAllegiance.ships.remove(this);
         if(this.isInBattle()) {
-            this.flee();
+            if (this.inBattle instanceof PlayerShip) {
+                for (Item item : this.itemsForPlunder) {
+                    ((PlayerShip) this.inBattle).inventory.addItem(item);
+                }
+            }
+
         }
     }
 }

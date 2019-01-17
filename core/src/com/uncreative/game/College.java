@@ -11,8 +11,9 @@ public class College implements Building {
     private Boolean hostile;
     public ArrayList<Buff> buffs;
     private Integer hp;
+    public Location location;
 
-    public College(String name, Integer hp, Integer goldOnCapture, Integer xpOnCapture, Boolean captured, ArrayList<Buff> buffs) {
+    public College(String name, Integer hp, Integer goldOnCapture, Integer xpOnCapture, Boolean captured, ArrayList<Buff> buffs, Location location) {
         this.name = name;
         this.ships = new ArrayList<OtherShip>();
         this.goldOnCapture = goldOnCapture;
@@ -22,6 +23,7 @@ public class College implements Building {
         this.buffs = new ArrayList<Buff>();
         this.buffs.addAll(buffs);
         this.hp = hp;
+        this.location = location;
     }
     public String getName() { return this.name; }
 

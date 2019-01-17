@@ -18,7 +18,7 @@ public class MovingObstacle extends Obstacle{
         this.following = !this.following;
     }
 
-    public void move(Pirates.dir direction){
+    public Boolean move(Pirates.dir direction){
         int[] location = this.location.getLocation();
         switch (direction){
             case N:
@@ -42,14 +42,20 @@ public class MovingObstacle extends Obstacle{
         Location newlocation = Pirates.map[location[0]][location[1]];
         if(newlocation.ship != null) {
             newlocation.ship.setHP(newlocation.ship.getHP() - this.getDamage());
+            return false;
+        } else  if(newlocation.building != null) {
+            return false;
         } else {
             Iterator<Obstacle> iter = newlocation.obstacles.iterator();
             while(iter.hasNext()) {
                 if(iter.next().getType() == this.getType()) {//Can't have 2 objects of the same type on top of eachother.
-                    return;
+                    return false;
                 }
             }
+            newlocation.obstacles.add(this);
+            this.location.obstacles.remove(this);
             this.location = newlocation;
+            return true;
         }
     }
 

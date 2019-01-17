@@ -39,6 +39,8 @@ public class MainMenu extends PirateScreen {
         stage = new Stage();
 
         background = new Image(new Texture(Gdx.files.internal("background.jpg")));
+        background.setHeight(Pirates.h);
+        background.setWidth(Pirates.w);
 
         titleStyle = new Label.LabelStyle();
         titleStyle.font = font;

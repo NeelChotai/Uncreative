@@ -124,7 +124,7 @@ public class PlayerShip implements Ship
                 break;
             default:    throw new InvalidParameterException();
         }
-        if(location[0] < 0 || location[0] > Pirates.size - 1 || location[1] < 0 || location[1] > Pirates.size - 1) {
+        if(location[0] < 0 || location[0] > Pirates.map.length - 1 || location[1] < 0 || location[1] > Pirates.map[0].length - 1) {
             return false;
         }
         Location newlocation = Pirates.map[location[0]][location[1]];
@@ -180,6 +180,9 @@ public class PlayerShip implements Ship
         damage -= target.getBaseDefence();
         if(damage < 0) { damage = 0; }
         target.setHP(target.getHP() - damage);
+        if(!this.isInBattle()) {
+
+        }
     }
 
     public void attackCollege(College college) {

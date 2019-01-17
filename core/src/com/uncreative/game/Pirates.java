@@ -6,11 +6,10 @@ import com.badlogic.gdx.audio.Music;
 import screens.MainMenu;
 
 public class Pirates extends Game {
-    public enum dir{
+    public enum dir {
         N, E, S, W
     }
-    public static final int size = 128;
-    public static Location[][] map = new Location[size][size];
+    public static Location[][] map;
     private static float volume;
     public static int w;
     public static int h;
