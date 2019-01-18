@@ -14,6 +14,7 @@ public class ObjectiveItem implements Item{
 		this.xpRequired = xp;
 		this.uses = uses;
 		this.building = building;
+		this.name = name;
 	}
 
 	public Objective getObjective() {

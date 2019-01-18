@@ -6,12 +6,15 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.uncreative.game.*;
 
 import java.util.ArrayList;
@@ -30,6 +33,10 @@ public class GameScreen extends PirateScreen{
     Stage ui;
     InputMultiplexer inputMultiplexer;
     InputProcessor inputProcessor;
+    TextureRegionDrawable buttonTexture;
+    TextButton attackButton;
+    TextButton fleeButton;
+    TextButton.TextButtonStyle buttonStyle;
 
     float xoffset;
     float yoffset;
@@ -69,6 +76,13 @@ public class GameScreen extends PirateScreen{
         ship_side = new Texture("ship_o_s.png");
         ship_up = new Texture("ship_o_f.png");
         ship_down = new Texture("ship_o_b.png");
+        buttonTexture = new TextureRegionDrawable(new TextureRegion(new Texture("button.png")));
+        buttonStyle = new TextButton.TextButtonStyle();
+        buttonStyle.up = buttonTexture;
+        buttonStyle.down = buttonTexture;
+        buttonStyle.font = super.font;
+        attackButton = new TextButton("Attack", buttonStyle);
+        fleeButton = new TextButton("Flee", buttonStyle);
 
         Sprite playerSprite_right = new Sprite(ship_side);
         Sprite playerSprite_up = new Sprite(ship_up);
@@ -102,16 +116,16 @@ public class GameScreen extends PirateScreen{
             public boolean keyUp(int keycode) {
                 switch(keycode) {
                     case Input.Keys.RIGHT:
-                        moveShip(player, Pirates.dir.E, playerSprites);
+                        takeTurn(player, Pirates.dir.E, playerSprites);
                         break;
                     case Input.Keys.DOWN:
-                        moveShip(player, Pirates.dir.S, playerSprites);
+                        takeTurn(player, Pirates.dir.S, playerSprites);
                         break;
                     case Input.Keys.LEFT:
-                        moveShip(player, Pirates.dir.W, playerSprites);
+                        takeTurn(player, Pirates.dir.W, playerSprites);
                         break;
                     case Input.Keys.UP:
-                        moveShip(player, Pirates.dir.N, playerSprites);
+                        takeTurn(player, Pirates.dir.N, playerSprites);
                 }
                 return false;
             }
@@ -174,57 +188,37 @@ public class GameScreen extends PirateScreen{
         camera.position.y = player.location.getLocation()[1]*properties.get("tileheight", Integer.class);
     }
     //THIS FUNCTION WILL BE USED TO "TAKE A TURN" FOR ALL SHIPS AND OBSTACLES!
-    private void moveShip(Ship ship, Pirates.dir direction, Sprite[] sprites) {//Sprite[] sprites = {up, right, down, left}
-        ship.move(direction);
-        switch (direction) {
-            case N:
-                playerSprite = sprites[0];
-                break;
-            case E:
-                playerSprite = sprites[1];
-                break;
-            case S:
-                playerSprite = sprites[2];
-                break;
-            case W:
-                playerSprite = sprites[3];
-                break;
-        }
-        playerSprite.setSize((float) properties.get("tilewidth", Integer.class),
-                (float) properties.get("tileheight", Integer.class));
-        playerSprite.setPosition(player.location.getLocation()[0]*properties.get("tilewidth", Integer.class) + xoffset, player.location.getLocation()[1]*properties.get("tileheight", Integer.class) + yoffset);
-        player.addXP(10);
-        otherShipActions();
-        tickBuffDurations(player);
-        for(Obstacle obstacle : obstacles) {
-            if(obstacle instanceof MovingObstacle) {
-                MovingObstacle moving = (MovingObstacle) obstacle;
-                Random random = new Random();
-                if(random.nextInt(10) == 0) {
-                    moving.toggleFollowing();
-                }
-                if(moving.getFollowing()) {
-                    moving.followShip(player);
-                } else {
-                    switch(random.nextInt(5)) {
-                        case 0:
-                            moving.move(Pirates.dir.N);
-                            break;
-                        case 1:
-                            moving.move(Pirates.dir.E);
-                            break;
-                        case 2:
-                            moving.move(Pirates.dir.S);
-                            break;
-                        case 3:
-                            moving.move(Pirates.dir.W);
-                            break;
-                        default:
-                            break;
-                    }
-                }
+    private void takeTurn(Ship ship, Pirates.dir direction, Sprite[] sprites) {//Sprite[] sprites = {up, right, down, left}
+        if(!ship.isInBattle()) {
+            ship.move(direction);
+            switch (direction) {
+                case N:
+                    playerSprite = sprites[0];
+                    break;
+                case E:
+                    playerSprite = sprites[1];
+                    break;
+                case S:
+                    playerSprite = sprites[2];
+                    break;
+                case W:
+                    playerSprite = sprites[3];
+                    break;
+            }
+            playerSprite.setSize((float) properties.get("tilewidth", Integer.class),
+                    (float) properties.get("tileheight", Integer.class));
+            playerSprite.setPosition(player.location.getLocation()[0] * properties.get("tilewidth", Integer.class) + xoffset, player.location.getLocation()[1] * properties.get("tileheight", Integer.class) + yoffset);
+            player.addXP(10);
+        } else {
+            if(showCombatUI()) {
+                player.attack();
+            } else {
+                player.flee();
             }
         }
+        otherShipActions();
+        tickBuffDurations(player);
+        obstaclesActions();
     }
 
     private void generateUI() {
@@ -273,5 +267,42 @@ public class GameScreen extends PirateScreen{
                 }
             }
         }
+    }
+
+    private void obstaclesActions() {
+        for(Obstacle obstacle : obstacles) {
+            if(obstacle instanceof MovingObstacle) {
+                MovingObstacle moving = (MovingObstacle) obstacle;
+                Random random = new Random();
+                if(random.nextInt(10) == 0) {
+                    moving.toggleFollowing();
+                }
+                if(moving.getFollowing()) {
+                    moving.followShip(player);
+                } else {
+                    switch(random.nextInt(5)) {
+                        case 0:
+                            moving.move(Pirates.dir.N);
+                            break;
+                        case 1:
+                            moving.move(Pirates.dir.E);
+                            break;
+                        case 2:
+                            moving.move(Pirates.dir.S);
+                            break;
+                        case 3:
+                            moving.move(Pirates.dir.W);
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+    }
+
+    private Boolean showCombatUI() {//true if attack, false if flee
+
+        return true;
     }
 }

@@ -88,6 +88,11 @@ public class OtherShip implements Ship {
 
     public void setInBattle(Ship target) {
         this.inBattle = target;
+        if(target instanceof PlayerShip) {
+            ((PlayerShip)this.inBattle).inBattle = this;
+        }  else if(target instanceof OtherShip) {
+            ((OtherShip)this.inBattle).inBattle = this;
+        }
     }
 
     public Boolean move(Pirates.dir direction) {

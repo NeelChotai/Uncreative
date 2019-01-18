@@ -63,13 +63,13 @@ public class MovingObstacle extends Obstacle{
         int dx = this.location.getLocation()[0] - ship.location.getLocation()[0];
         int dy = this.location.getLocation()[1] - ship.location.getLocation()[1];
         if(Math.abs(dx) >= Math.abs(dy)) {//Move towards x
-            if(dx > 0) {
+            if(dx < 0) {
                 this.move(Pirates.dir.E);
             } else {
                 this.move(Pirates.dir.W);
             }
         } else {//Move towards y
-            if(dy > 0) {
+            if(dy < 0) {
                 this.move(Pirates.dir.N);
             } else {
                 this.move(Pirates.dir.S);
