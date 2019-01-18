@@ -1,5 +1,7 @@
 package com.uncreative.game;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
+
 import java.util.ArrayList;
 
 public interface Ship {

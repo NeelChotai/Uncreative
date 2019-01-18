@@ -43,6 +43,8 @@ public class College implements Building {
         return this.hostile;
     }
 
+    public Location getLocation() { return this.location; }
+
     public void setCaptured() {
         this.captured = true;
         this.ships.clear();//Kill all of it's ships

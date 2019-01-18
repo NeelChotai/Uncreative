@@ -1,5 +1,7 @@
 package com.uncreative.game;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
+
 import javax.print.attribute.standard.MediaSize;
 import java.lang.reflect.Array;
 import java.security.InvalidParameterException;
@@ -22,6 +24,7 @@ public class PlayerShip implements Ship
     private ArrayList<Buff> buffs;
     public Inventory inventory;
     public Location location;
+    public Sprite sprite;
 
 
     public PlayerShip(Integer hp, Integer maxHP, Integer baseDamage, Integer baseDefence, College college, Integer gold, Integer xp, Item[] items, Location location)

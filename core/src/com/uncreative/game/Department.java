@@ -6,13 +6,15 @@ public class Department implements Building{
     public Integer upgradeStatCost;
     public Inventory inventory;
     private final double sellMultiplier = 0.5;
+    private Location location;
 
-    public Department(String name, Integer healCost, Integer upgradeStatCost, Item[] items) {
+    public Department(String name, Integer healCost, Integer upgradeStatCost, Item[] items, Location location) {
         this.name = name;
         this.healCost = healCost;
         this.upgradeStatCost = upgradeStatCost;
         this.inventory = new Inventory(512);
         for(Item item : items) {inventory.addItem(item); }
+        this.location = location;
     }
 
     public String getName() {
@@ -71,4 +73,6 @@ public class Department implements Building{
     public Integer getHealCost() {
         return this.healCost;
     }
+
+    public Location getLocation() { return this.location; }
 }
