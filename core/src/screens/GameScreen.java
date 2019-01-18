@@ -1,6 +1,7 @@
 package screens;
 
 import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.utils.Align;
 import com.uncreative.game.*;
 
 import java.util.ArrayList;
@@ -41,7 +43,6 @@ public class GameScreen extends PirateScreen{
     TextButton attackButton;
     TextButton fleeButton;
     TextButton.TextButtonStyle buttonStyle;
-    Boolean waitingForInput;
 
     float xoffset;
     float yoffset;
@@ -90,6 +91,14 @@ public class GameScreen extends PirateScreen{
         fleeButton = new TextButton("Flee", buttonStyle);
         attackButton.setTransform(true);
         fleeButton.setTransform(true);
+        attackButton.setOrigin(Align.center);
+        attackButton.setPosition(Pirates.w/4f, Pirates.h/2f, Align.center);
+        attackButton.setScale(Pirates.h/200f);
+        attackButton.getLabel().setFontScale(0.25f);
+        fleeButton.setOrigin(Align.center);
+        fleeButton.setPosition(3f*Pirates.w/4f, Pirates.h/2f, Align.center);
+        fleeButton.setScale(Pirates.h/200f);
+        fleeButton.getLabel().setFontScale(0.25f);
         fleeButton.setVisible(false);
         attackButton.setVisible(false);
         attackButton.addListener(new ClickListener() {
@@ -98,6 +107,7 @@ public class GameScreen extends PirateScreen{
                 attackButton.setVisible(false);
                 fleeButton.setVisible(false);
                 player.attack();
+                endTurn();
             }
         });
         fleeButton.addListener(new ClickListener() {
@@ -106,18 +116,11 @@ public class GameScreen extends PirateScreen{
                 attackButton.setVisible(false);
                 fleeButton.setVisible(false);
                 player.flee();
+                endTurn();
             }
         });
 
         shipToSpriteMap = new HashMap<Ship, Sprite>();
-
-        Sprite playerSprite_right = new Sprite(ship_side);
-        Sprite playerSprite_up = new Sprite(ship_up);
-        Sprite playerSprite_down = new Sprite(ship_down);
-        Sprite playerSprite_left = new Sprite(ship_side);
-        playerSprite_left.flip(true, false);
-
-        final Sprite[] playerSprites = {playerSprite_up, playerSprite_right, playerSprite_down, playerSprite_left};
 
         colleges = new ArrayList<College>();
 
@@ -134,14 +137,22 @@ public class GameScreen extends PirateScreen{
         ArrayList<Buff> langwithBuffs = new ArrayList<Buff>();
         langwithBuffs.add(langwith1);
         College langwith = new College("Langwith", 100, 100, 100, false, langwithBuffs, Pirates.map[20][20]);
-        langwith.ships.add(new OtherShip(5, 1, 0, langwith, 5, 5, new Item[0], Pirates.map[19][20]));
+        langwith.ships.add(new OtherShip(10, 3, 0, langwith, 5, 5, new Item[0], Pirates.map[19][20]));
         colleges.add(langwith);
 
         player = new PlayerShip(10, 10, 5, 2, goodricke, 1000, 0, new Item[0], Pirates.map[5][5]);
-        shipToSpriteMap.put(player, playerSprite_right);
-        shipToSpriteMap.get(player).setSize((float) properties.get("tilewidth", Integer.class),
-                (float) properties.get("tileheight", Integer.class));
-        shipToSpriteMap.get(player).setPosition(player.location.getLocation()[0]*properties.get("tilewidth", Integer.class) + xoffset, player.location.getLocation()[1]*properties.get("tileheight", Integer.class) + yoffset);
+        goodricke.ships.add(player);
+
+        shipToSpriteMap.put(player, new Sprite(ship_side));
+
+        for(College college : colleges) {
+            for(Ship ship : college.ships) {
+                shipToSpriteMap.put(ship, new Sprite(ship_side));
+                shipToSpriteMap.get(ship).setSize((float) properties.get("tilewidth", Integer.class),
+                        (float) properties.get("tileheight", Integer.class));
+                shipToSpriteMap.get(ship).setPosition(ship.getLocation().getLocation()[0] * properties.get("tilewidth", Integer.class) + xoffset, ship.getLocation().getLocation()[1] * properties.get("tileheight", Integer.class) + yoffset);
+            }
+        }
 
         inputMultiplexer = new InputMultiplexer();
         inputMultiplexer.addProcessor(ui);
@@ -159,16 +170,27 @@ public class GameScreen extends PirateScreen{
             public boolean keyUp(int keycode) {
                 switch(keycode) {
                     case Input.Keys.RIGHT:
-                        movePlayer(player, Pirates.dir.E, playerSprites);
+                        if(!player.isInBattle()) {
+                            movePlayer(player, Pirates.dir.E);
+                        }
                         break;
                     case Input.Keys.DOWN:
-                        movePlayer(player, Pirates.dir.S, playerSprites);
+                        if (!player.isInBattle()) {
+                            movePlayer(player, Pirates.dir.S);
+                        }
                         break;
                     case Input.Keys.LEFT:
-                        movePlayer(player, Pirates.dir.W, playerSprites);
+                        if (!player.isInBattle()) {
+                            movePlayer(player, Pirates.dir.W);
+                        }
                         break;
                     case Input.Keys.UP:
-                        movePlayer(player, Pirates.dir.N, playerSprites);
+                        if (!player.isInBattle()) {
+                            movePlayer(player, Pirates.dir.N);
+                        }
+                        break;
+                    case Input.Keys.ESCAPE:
+                        setMainMenu();
                 }
                 return false;
             }
@@ -216,10 +238,25 @@ public class GameScreen extends PirateScreen{
         mapRenderer.setView(camera);
         mapRenderer.render();
         batch.begin();
-        for(Sprite sprite : shipToSpriteMap.values()) {
+        shipToSpriteMap.get(player).setColor(Color.GREEN);
+        if (!player.isInBattle()) {
+            for(College college : colleges) {
+                for(Ship ship: college.ships) {
+                    Sprite sprite = shipToSpriteMap.get(ship);
+                    sprite.draw(batch);
+                    font.draw(batch, "HP: " + ship.getHP() + "/" + ship.getMaxHP(),(int)sprite.getX() - 10, (int) sprite.getY() - 10);
+                }
+            }
+        } else {
+            shipToSpriteMap.get(player).draw(batch);
+            Sprite sprite = shipToSpriteMap.get(player.inBattle);
             sprite.draw(batch);
+            font.draw(batch, "HP: " + player.inBattle.getHP() + "/" + player.inBattle.getMaxHP(),(int)sprite.getX() - 10, (int) sprite.getY() - 10);
         }
         batch.end();
+        ui.getBatch().begin();
+        font.draw(ui.getBatch(), "Gold: " + player.getGoldAvailable() + "     XP: " + player.getXP() + "     HP: " + player.getHP(), 0, Pirates.h - 5);
+        ui.getBatch().end();
         ui.draw();
     }
 
@@ -233,56 +270,42 @@ public class GameScreen extends PirateScreen{
         camera.position.y = player.location.getLocation()[1]*properties.get("tileheight", Integer.class);
     }
 
-    private void movePlayer(PlayerShip ship, Pirates.dir direction, Sprite[] sprites) {
-        if(!ship.isInBattle()) {
-            ship.move(direction);
-            switch (direction) {
-                case N:
-                    shipToSpriteMap.put(ship, sprites[0]);
-                    break;
-                case E:
-                    shipToSpriteMap.put(ship, sprites[1]);
-                    break;
-                case S:
-                    shipToSpriteMap.put(ship, sprites[2]);
-                    break;
-                case W:
-                    shipToSpriteMap.put(ship, sprites[3]);
-            }
-            shipToSpriteMap.get(ship).setSize((float) properties.get("tilewidth", Integer.class),
-                    (float) properties.get("tileheight", Integer.class));
-            shipToSpriteMap.get(ship).setPosition(player.location.getLocation()[0] * properties.get("tilewidth", Integer.class) + xoffset, player.location.getLocation()[1] * properties.get("tileheight", Integer.class) + yoffset);
-        } else {
-            showCombatUI();
-        }
+    private void movePlayer(PlayerShip ship, Pirates.dir direction) {
+        moveShip(ship, direction);
+        player.addXP(5);
+        endTurn();
+    }
+
+    private void endTurn() {
         otherShipActions();
         tickBuffDurations(player);
         obstaclesActions();
+        if(player.isInBattle()) {
+            showCombatUI();
+        }
     }
 
-    private void moveShip(OtherShip ship, Pirates.dir direction, Sprite[] sprites) {//Sprite[] sprites = {up, right, down, left}
-        if(!ship.isInBattle()) {
+    private void moveShip(Ship ship, Pirates.dir direction) {//Sprite[] sprites = {up, right, down, left}
             ship.move(direction);
             switch (direction) {
                 case N:
-                    ship.sprite = sprites[0];
+                    shipToSpriteMap.put(ship, new Sprite(ship_up));
                     break;
                 case E:
-                    ship.sprite = sprites[1];
+                    shipToSpriteMap.put(ship, new Sprite(ship_side));
                     break;
                 case S:
-                    ship.sprite = sprites[2];
+                    shipToSpriteMap.put(ship, new Sprite(ship_down));
                     break;
                 case W:
-                    ship.sprite = sprites[3];
+                    Sprite sprite = new Sprite(ship_side);
+                    sprite.flip(true, false);
+                    shipToSpriteMap.put(ship, sprite);
                     break;
             }
-            ship.sprite.setSize((float) properties.get("tilewidth", Integer.class),
+            shipToSpriteMap.get(ship).setSize((float) properties.get("tilewidth", Integer.class),
                     (float) properties.get("tileheight", Integer.class));
-            ship.sprite.setPosition(player.location.getLocation()[0] * properties.get("tilewidth", Integer.class) + xoffset, player.location.getLocation()[1] * properties.get("tileheight", Integer.class) + yoffset);
-        } else {
-            ship.attack();
-        }
+            shipToSpriteMap.get(ship).setPosition(ship.getLocation().getLocation()[0] * properties.get("tilewidth", Integer.class) + xoffset, ship.getLocation().getLocation()[1] * properties.get("tileheight", Integer.class) + yoffset);
     }
 
     private void generateUI() {
@@ -291,31 +314,31 @@ public class GameScreen extends PirateScreen{
 
     private void otherShipActions() {
         for(College college : colleges) {
-            for(OtherShip othership : college.ships) {
-                if(othership.isInBattle()) {
-                    othership.attack();
+            for(Ship ship : college.ships) {
+                if(ship instanceof PlayerShip) { continue; }
+                if(ship.isInBattle()) {
+                    ship.attack();
                 } else {
                     Random random = new Random();
-                    int num = random.nextInt(5);
+                    int num = random.nextInt(10);
                     switch(num) {
                         case 0:
-                            othership.move(Pirates.dir.N);
+                            moveShip(ship, Pirates.dir.N);
                             break;
                         case 1:
-                            othership.move(Pirates.dir.E);
+                            moveShip(ship,Pirates.dir.E);
                             break;
                         case 2:
-                            othership.move(Pirates.dir.S);
+                            moveShip(ship,Pirates.dir.S);
                             break;
                         case 3:
-                            othership.move(Pirates.dir.W);
+                            moveShip(ship,Pirates.dir.W);
                             break;
                         default:
                             break;
                     }
                 }
-                tickBuffDurations(othership);
-
+                tickBuffDurations(ship);
             }
         }
     }
@@ -368,5 +391,9 @@ public class GameScreen extends PirateScreen{
     private void showCombatUI() {//true if attack, false if flee
         attackButton.setVisible(true);
         fleeButton.setVisible(true);
+    }
+
+    private void setMainMenu() {
+        game.setScreen(new MainMenu(game));
     }
 }

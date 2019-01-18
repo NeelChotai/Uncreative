@@ -18,4 +18,5 @@ public interface Ship {
     public void flee();
     public Boolean isInBattle();
     public College getCollegeAllegiance();
+    public Location getLocation();
 }

@@ -24,7 +24,6 @@ public class PlayerShip implements Ship
     private ArrayList<Buff> buffs;
     public Inventory inventory;
     public Location location;
-    public Sprite sprite;
 
 
     public PlayerShip(Integer hp, Integer maxHP, Integer baseDamage, Integer baseDefence, College college, Integer gold, Integer xp, Item[] items, Location location)
@@ -157,7 +156,7 @@ public class PlayerShip implements Ship
 
     public void battleShip(OtherShip target)
     {
-        this.inBattle = target;//Do some UI Stuff?
+        this.inBattle = target;
         College enemyCollege = this.inBattle.getCollegeAllegiance();
         if(!enemyCollege.getHostile()) {
             enemyCollege.toggleHostile();
@@ -210,6 +209,10 @@ public class PlayerShip implements Ship
             ((OtherShip)this.inBattle).inBattle = null;
         }
         this.inBattle = null;
+    }
+
+    public Location getLocation() {
+        return this.location;
     }
 
     private Boolean startMinigame()

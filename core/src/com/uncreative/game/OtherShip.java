@@ -19,7 +19,6 @@ public class OtherShip implements Ship {
     private Integer XPForPlunder;
     private Item[] itemsForPlunder;
     public Location location;
-    public Sprite sprite;
 
     public OtherShip(Integer hp, Integer baseDamage, Integer baseDefence, College college, Integer gold, Integer xp, Item[] items, Location location)
     {
@@ -207,5 +206,9 @@ public class OtherShip implements Ship {
             }
             this.inBattle = null;
         }
+    }
+
+    public Location getLocation() {
+        return this.location;
     }
 }

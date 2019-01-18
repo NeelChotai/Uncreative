@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class College implements Building {
     private String name;
-    public ArrayList<OtherShip> ships;
+    public ArrayList<Ship> ships;
     private Integer goldOnCapture;
     private Integer xpOnCapture;
     private Boolean captured;
@@ -15,7 +15,7 @@ public class College implements Building {
 
     public College(String name, Integer hp, Integer goldOnCapture, Integer xpOnCapture, Boolean captured, ArrayList<Buff> buffs, Location location) {
         this.name = name;
-        this.ships = new ArrayList<OtherShip>();
+        this.ships = new ArrayList<Ship>();
         this.goldOnCapture = goldOnCapture;
         this.xpOnCapture = xpOnCapture;
         this.captured = captured;
