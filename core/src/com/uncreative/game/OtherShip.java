@@ -32,7 +32,9 @@ public class OtherShip implements Ship {
         this.itemsForPlunder = items;
         this.location = location;
         this.activeBuffs = new ArrayList<Buff>();
-        this.activeBuffs.addAll(college.getBuffs());
+        for(Buff buff: college.getBuffs()) {
+            this.activeBuffs.add(buff);
+        }
     }
 
     public Integer getHP() {
@@ -57,10 +59,18 @@ public class OtherShip implements Ship {
 
     public void removeBuff(Buff buff) {
         this.activeBuffs.remove(buff);
+        if(buff.getStat() == "maxHP") {
+            this.maxHP -= buff.getAmount();
+            setHP(this.hp);//Fixes the potential problem of HP > maxHP
+        }
     }
 
     public void addBuff(Buff buff) {
         this.activeBuffs.add(buff);
+        if(buff.getStat().equals("maxHP")) {
+            this.maxHP += buff.getAmount();
+            this.hp += buff.getAmount();
+        }
     }
 
     public College getCollegeAllegiance() {
@@ -96,6 +106,7 @@ public class OtherShip implements Ship {
             ((OtherShip)this.inBattle).inBattle = this;
         }
     }
+
 
     public Boolean move(Pirates.dir direction) {
         if(this.inBattle != null) { System.out.println("Error: OtherShip tried to move in battle."); return false; }//Can't move in battle

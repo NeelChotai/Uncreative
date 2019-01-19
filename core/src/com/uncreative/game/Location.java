@@ -13,6 +13,7 @@ public class Location {
         this.x = x;
         this.y = y;
         this.ship = null;
+        this.building = null;
         this.obstacles = new ArrayList<Obstacle>();
     }
 

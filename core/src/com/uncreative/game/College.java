@@ -46,22 +46,27 @@ public class College implements Building {
 
     public Location getLocation() { return this.location; }
 
-    public void setCaptured() {
+    public void setCaptured(PlayerShip player) {
         this.captured = true;
         this.ships.clear();//Kill all of it's ships
         this.hostile = false;
+        player.setGoldAvailable(player.getGoldAvailable() + this.goldOnCapture);
+        player.addXP(this.xpOnCapture);
+        for(Buff buff : this.buffs) {
+            player.addBuff(buff);
+        }
     }
 
     public Integer getHP() {
         return this.hp;
     }
 
-    public void setHP(Integer hp) {
+    public void setHP(Integer hp, PlayerShip player) {
         if(hp < this.hp) {
             this.hostile = true;
         }
         if(hp <= 0) {
-            this.setCaptured();
+            this.setCaptured(player);
         } else {
             this.hp = hp;
         }

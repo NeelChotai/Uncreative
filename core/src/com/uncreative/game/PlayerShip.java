@@ -1,6 +1,7 @@
 package com.uncreative.game;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import screens.MainMenu;
 
 import javax.print.attribute.standard.MediaSize;
 import java.lang.reflect.Array;
@@ -39,7 +40,9 @@ public class PlayerShip implements Ship
         this.totalGoldEarned = gold;
         this.XP = xp;
         this.buffs = new ArrayList<Buff>();
-        this.buffs.addAll(college.getBuffs());
+        for(Buff buff : college.getBuffs()) {
+            this.addBuff(buff);
+        }
         this.inventory = new Inventory(16);
         for(Item item : items) { this.inventory.addItem(item); }
         this.location = location;
@@ -98,12 +101,12 @@ public class PlayerShip implements Ship
                 ((OtherShip)this.inBattle).inBattle = null;
                 this.inBattle = null;
             }
-            if(startMinigame()){
-                hp = 1;
-            }
-            else{
-                //GAME OVER SCREEN
-            }
+//            if(startMinigame()){
+//                hp = 1;
+//            }
+//            else{
+//                Pirates.game.setScreen(new MainMenu(Pirates.game));//MINIGAME
+//            };
         }
 
         if(hp > maxHP) {
@@ -204,7 +207,7 @@ public class PlayerShip implements Ship
             }
         }
 
-        college.setHP(college.getHP() - damage);
+        college.setHP(college.getHP() - damage, this);
     }
 
     public void flee() {

@@ -4,6 +4,7 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import screens.MainMenu;
+import screens.deathScreen;
 
 public class Pirates extends Game {
     public enum dir {
