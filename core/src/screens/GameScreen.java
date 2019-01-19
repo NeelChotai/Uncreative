@@ -34,8 +34,10 @@ public class GameScreen extends PirateScreen{
     Texture ship_side;
     Texture ship_down;
     Texture ship_up;
+    Texture buildingTexture;
     SpriteBatch batch;
     HashMap<Ship, Sprite> shipToSpriteMap;
+    HashMap<Building, Sprite> buildingToSpriteMap;
     Stage ui;
     InputMultiplexer inputMultiplexer;
     InputProcessor inputProcessor;
@@ -82,6 +84,8 @@ public class GameScreen extends PirateScreen{
         ship_side = new Texture("ship_o_s.png");
         ship_up = new Texture("ship_o_f.png");
         ship_down = new Texture("ship_o_b.png");
+        buildingTexture = new Texture("coin.png");//Replace with building texture
+
         buttonTexture = new TextureRegionDrawable(new TextureRegion(new Texture("button.png")));
         buttonStyle = new TextButton.TextButtonStyle();
         buttonStyle.up = buttonTexture;
@@ -121,6 +125,7 @@ public class GameScreen extends PirateScreen{
         });
 
         shipToSpriteMap = new HashMap<Ship, Sprite>();
+        buildingToSpriteMap = new HashMap<Building, Sprite>();
 
         colleges = new ArrayList<College>();
 
@@ -146,11 +151,15 @@ public class GameScreen extends PirateScreen{
         shipToSpriteMap.put(player, new Sprite(ship_side));
 
         for(College college : colleges) {
+            Sprite buildingSprite = new Sprite(buildingTexture);
+            buildingToSpriteMap.put(college, buildingSprite);
+            buildingSprite.setSize((float) properties.get("tilewidth", Integer.class), (float) properties.get("tileheight", Integer.class));
+            buildingSprite.setPosition(college.getLocation().getLocation()[0] * properties.get("tilewidth", Integer.class) + xoffset, college.getLocation().getLocation()[1] * properties.get("tileheight", Integer.class) + yoffset);
             for(Ship ship : college.ships) {
-                shipToSpriteMap.put(ship, new Sprite(ship_side));
-                shipToSpriteMap.get(ship).setSize((float) properties.get("tilewidth", Integer.class),
-                        (float) properties.get("tileheight", Integer.class));
-                shipToSpriteMap.get(ship).setPosition(ship.getLocation().getLocation()[0] * properties.get("tilewidth", Integer.class) + xoffset, ship.getLocation().getLocation()[1] * properties.get("tileheight", Integer.class) + yoffset);
+                Sprite shipSprite = new Sprite(ship_side);
+                shipToSpriteMap.put(ship, shipSprite);
+                shipSprite.setSize((float) properties.get("tilewidth", Integer.class), (float) properties.get("tileheight", Integer.class));
+                shipSprite.setPosition(ship.getLocation().getLocation()[0] * properties.get("tilewidth", Integer.class) + xoffset, ship.getLocation().getLocation()[1] * properties.get("tileheight", Integer.class) + yoffset);
             }
         }
 
@@ -239,13 +248,29 @@ public class GameScreen extends PirateScreen{
         mapRenderer.render();
         batch.begin();
         shipToSpriteMap.get(player).setColor(Color.GREEN);
+        font.getData().setScale(0.5f);
         if (!player.isInBattle()) {
             for(College college : colleges) {
                 for(Ship ship: college.ships) {
-                    Sprite sprite = shipToSpriteMap.get(ship);
-                    sprite.draw(batch);
-                    font.draw(batch, "HP: " + ship.getHP() + "/" + ship.getMaxHP(),(int)sprite.getX() - 10, (int) sprite.getY() - 10);
+                    Sprite shipSprite = shipToSpriteMap.get(ship);
+                    shipSprite.draw(batch);
+                    if(!(ship instanceof PlayerShip)) {
+                        font.draw(batch, ship.getCollegeAllegiance().getName() + " Ship", (int)shipSprite.getX() -20, (int) shipSprite.getY() + 40);
+                        font.draw(batch, "HP: " + ship.getHP() + "/" + ship.getMaxHP(), (int) shipSprite.getX() - 10, (int) shipSprite.getY() - 10);
+                    }
                 }
+            }
+            for(Building building : buildingToSpriteMap.keySet()) {
+                Sprite buildingSprite = buildingToSpriteMap.get(building);
+                font.draw(batch, building.getName(), (int)buildingSprite.getX() -20, (int) buildingSprite.getY() + 40);
+                if(building instanceof College) {
+                    College college = (College) building;
+                    if(college.getCaptured()){
+                        buildingSprite.setColor(Color.GREEN);
+                    }
+                    font.draw(batch, "HP: " + college.getHP(), (int) buildingSprite.getX() - 10, (int) buildingSprite.getY() - 10);
+                }
+                buildingSprite.draw(batch);
             }
         } else {
             shipToSpriteMap.get(player).draw(batch);
@@ -253,6 +278,7 @@ public class GameScreen extends PirateScreen{
             sprite.draw(batch);
             font.draw(batch, "HP: " + player.inBattle.getHP() + "/" + player.inBattle.getMaxHP(),(int)sprite.getX() - 10, (int) sprite.getY() - 10);
         }
+        font.getData().setScale(1f);
         batch.end();
         ui.getBatch().begin();
         font.draw(ui.getBatch(), "Gold: " + player.getGoldAvailable() + "     XP: " + player.getXP() + "     HP: " + player.getHP(), 0, Pirates.h - 5);

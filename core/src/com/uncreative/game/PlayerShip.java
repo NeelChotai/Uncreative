@@ -141,7 +141,10 @@ public class PlayerShip implements Ship
             battleShip((OtherShip) newlocation.ship);
             return false;
         } else  if(newlocation.building instanceof College){
-            attackCollege((College) newlocation.building);
+            College college = (College) newlocation.building;
+            if(!college.getCaptured()){
+                attackCollege(college);
+            }
             return false;
         } else {
             for (Obstacle obstacle : newlocation.obstacles) {

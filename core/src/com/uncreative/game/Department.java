@@ -15,6 +15,7 @@ public class Department implements Building{
         this.inventory = new Inventory(512);
         for(Item item : items) {inventory.addItem(item); }
         this.location = location;
+        location.building = this;
     }
 
     public String getName() {

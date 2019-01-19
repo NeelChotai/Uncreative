@@ -24,6 +24,7 @@ public class College implements Building {
         this.buffs.addAll(buffs);
         this.hp = hp;
         this.location = location;
+        location.building = this;
     }
     public String getName() { return this.name; }
 
