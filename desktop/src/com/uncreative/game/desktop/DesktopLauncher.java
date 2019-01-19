@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		DisplayMode mode = LwjglApplicationConfiguration.getDesktopDisplayMode();
 		config.setFromDisplayMode(mode);
-		config.title = "Pirates!";
+		config.title = "York Pirates!";
 		new LwjglApplication(new Pirates(), config);
 	}
 }
