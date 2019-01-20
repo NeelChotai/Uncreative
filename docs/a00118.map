@@ -1,0 +1,7 @@
+<map id="com.uncreative.game.Item" name="com.uncreative.game.Item">
+<area shape="rect" id="node1" title=" " alt="" coords="5,81,180,108"/>
+<area shape="rect" id="node2" href="$buffitem.html" title=" " alt="" coords="243,5,439,32"/>
+<area shape="rect" id="node3" href="$college.html" title=" " alt="" coords="230,56,453,83"/>
+<area shape="rect" id="node4" href="$healingitem.html" title=" " alt="" coords="233,107,450,133"/>
+<area shape="rect" id="node5" href="$objectiveitem.html" title=" " alt="" coords="228,157,455,184"/>
+</map>
