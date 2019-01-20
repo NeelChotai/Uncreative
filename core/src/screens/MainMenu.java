@@ -28,7 +28,6 @@ public class MainMenu extends PirateScreen {
     private TextButton.TextButtonStyle b_volumeStyle;
     private TextButton b_quit;
     private TextButton.TextButtonStyle b_quitStyle;
-    public final Sound ping = Gdx.audio.newSound(Gdx.files.internal("Ping.mp3"));
     private BitmapFont font = super.font;
     private Label title;
     private Label.LabelStyle titleStyle;
@@ -63,7 +62,6 @@ public class MainMenu extends PirateScreen {
            @Override
            public void clicked(InputEvent event, float x, float y) {
                newGame();
-               ping.play(Pirates.getVolume());
            }
         });
         b_newGame.setOrigin(Align.center);
@@ -128,7 +126,6 @@ public class MainMenu extends PirateScreen {
 
     @Override
     public void dispose() {
-        ping.dispose();
         stage.dispose();
     }
 
