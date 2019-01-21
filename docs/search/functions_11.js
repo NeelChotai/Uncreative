@@ -1,6 +1,0 @@
-var searchData=
-[
-  ['upgradestat',['upgradeStat',['../department.html#af9b2f2d9e0e7436ab98984b6b30d0d3b',1,'com::uncreative::game::Department']]],
-  ['use',['use',['../buffitem.html#a71a69465e1acc6c61c4abd8c377c809b',1,'com.uncreative.game.BuffItem.use()'],['../college.html#a1146147fce9e7744eb341cb991aed848',1,'com.uncreative.game.DamageItem.use()'],['../healingitem.html#a1186b497fafd1005d81b7502cceda084',1,'com.uncreative.game.HealingItem.use()'],['../item.html#a0a4aabc7c95e8b7a41535a854401bfb8',1,'com.uncreative.game.Item.use()'],['../objectiveitem.html#a813a10b2d3de85ec3d6554979b4d4219',1,'com.uncreative.game.ObjectiveItem.use(PlayerShip ship)'],['../objectiveitem.html#a41c5e4c0cb50b78f7ea4168792a61936',1,'com.uncreative.game.ObjectiveItem.use(PlayerShip ship, Ship s)']]],
-  ['usesleft',['usesLeft',['../buffitem.html#a755911b547c5ed0abddc00fa0cc1df95',1,'com.uncreative.game.BuffItem.usesLeft()'],['../college.html#a24c8f3dd4dabf65a3314b52c73ce09bb',1,'com.uncreative.game.DamageItem.usesLeft()'],['../healingitem.html#a394514a8027bfb598d6dc049ebcee345',1,'com.uncreative.game.HealingItem.usesLeft()'],['../item.html#a44b67170bc86b7d3ba4cf9ab6ceed3ad',1,'com.uncreative.game.Item.usesLeft()'],['../objectiveitem.html#aa6447f008a08000f8b0760778a0b19e3',1,'com.uncreative.game.ObjectiveItem.usesLeft()']]]
-];
