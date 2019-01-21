@@ -154,23 +154,9 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:a53852fd7e079bc5451fa9c84a7bf6bba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Detailed Description</h2>
-<a id="a647194182c64444be32404209b50f7fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a647194182c64444be32404209b50f7fb">&#9670;&nbsp;</a></span>GameScreen()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">screens.GameScreen.GameScreen </td>
-          <td>(</td>
-          <td class="paramtype">Game&#160;</td>
-          <td class="paramname"><em>game</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
+<div class="textblock">
+<p>Renders the main game screen including the map, ships and locations.</p>
+<p>Extends class PirateScreen.</p>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="ad33f4612f4982572a2fb08b39f828e4a"></a>
@@ -196,7 +182,13 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Creates new ship with the affiliation of a given college.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tbody><tr><td class="paramname">college</td><td>College to affiliate created ship with.</td></tr>
+  </tbody></table>
+  </dd>
+</dl>
 </div>
 </div>
 <a id="a41453a6dfecc78dccb27302d45363fc4"></a>
@@ -213,7 +205,7 @@ Private Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Destroys game window.</p>
 </div>
 </div>
 <a id="a53852fd7e079bc5451fa9c84a7bf6bba"></a>
@@ -238,7 +230,7 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Ends game, sends player to death screen.</p>
 </div>
 </div>
 <a id="a692d74079aaa3d084172212aa2507b4f"></a>
@@ -263,7 +255,7 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Ends player's turn and allows the computer to make a move contigent on an attack being carried out or the player's ship moving.</p>
 </div>
 </div>
 <a id="ab2eb26a03f0b9e1d38e628b00945cae3"></a>
@@ -288,7 +280,7 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Creates a new overlay when battling another ship or interacting with a building.</p>
 </div>
 </div>
 <a id="a6fffb163c824c452c460f73410259f6d"></a>
@@ -324,7 +316,14 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Moves the player ship one unit given an existing PlayerShip and direction.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tbody><tr><td class="paramname">ship</td><td>Ship to be moved.</td></tr>
+	<tbody><tr><td class="paramname">direction</td><td>Direction in which to move ship.</td></tr>
+  </tbody></table>
+  </dd>
+</dl>
 </div>
 </div>
 <a id="aceb810a0421477daaba9e800f9386607"></a>
@@ -360,7 +359,14 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Moves a non-playable ship one unit given an existing OtherShip and direction.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tbody><tr><td class="paramname">ship</td><td>Ship to be moved.</td></tr>
+	<tbody><tr><td class="paramname">direction</td><td>Direction in which to move ship.</td></tr>
+  </tbody></table>
+  </dd>
+</dl>
 </div>
 </div>
 <a id="afd957055f4b248b267cbbcaeda5dd5f5"></a>
@@ -385,7 +391,7 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Carries out actions of obstacles one player ends their turn.</p>
 </div>
 </div>
 <a id="a6652762118026ab6283bc3e17b6a1955"></a>
@@ -410,7 +416,7 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Carries out the actions of other ships (i.e. not the PlayerShip) when a player ends their turn.</p>
 </div>
 </div>
 <a id="ad3df15d1223b3ad82b126ca87e047d1a"></a>
@@ -428,7 +434,13 @@ Private Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Draws the game over screen.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tbody><tr><td class="paramname">delta</td><td>Render time between frames.</td></tr>
+  </tbody></table>
+  </dd>
+</dl>
 </div>
 </div>
 <a id="a88eb99959bad6a39388f25f8e0d4b866"></a>
@@ -453,7 +465,7 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Centres map view on PlayerShip.</p>
 </div>
 </div>
 <a id="a56a5b95737d6f6329988cbe49022a325"></a>
@@ -478,7 +490,7 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Returns player to main menu.</p>
 </div>
 </div>
 <a id="a44e90a33ada383ab8e40984fa95a41a6"></a>
@@ -503,7 +515,7 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>When a battle is engaged, generates battle UI and brings to the front of game window.</p>
 </div>
 </div>
 <a id="a8d78251cb8a536a348dc88ad03aea2f8"></a>
@@ -528,7 +540,7 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>When interacting with a department, generates department UI and brings to the front of game window.</p>
 </div>
 </div>
 <a id="af9d892a5bf44a1340883b189951b8950"></a>
@@ -554,7 +566,13 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Checks buff durations every tick. If a buff has limited uses and a ship has exceeded them, removes the buff from a given ship.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tbody><tr><td class="paramname">ship</td><td>Ship to remove buff from.</td></tr>
+  </tbody></table>
+  </dd>
+</dl>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>

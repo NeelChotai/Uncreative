@@ -158,23 +158,9 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a0e0133adcdb414b696b53737639eedf2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Detailed Description</h2>
-<a id="ab1b9c5b123a12523bf673335db452533"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab1b9c5b123a12523bf673335db452533">&#9670;&nbsp;</a></span>MainMenu()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">screens.MainMenu.MainMenu </td>
-          <td>(</td>
-          <td class="paramtype">Game&#160;</td>
-          <td class="paramname"><em>game</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
+<div class="textblock">
+<p>Proceeds the splash screen. Allows the player to start a game, modify the volume or quit the game.</p>
+<p>Extends class PirateScreen.</p>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a857c3f4aad1d83cee92265a0f805c47b"></a>
@@ -191,7 +177,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Destroys main menu window.</p>
 </div>
 </div>
 <a id="aadf8c0ecc1b7eaea17f511ef2a785d30"></a>
@@ -208,7 +194,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Hides main menu window, called when a button on the main menu is pressed.</p>
 </div>
 </div>
 <a id="acee0ead11f9eb3e1aad97857992046f7"></a>
@@ -225,7 +211,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Starts a new game.</p>
 </div>
 </div>
 <a id="a3241910bf41ce43984adcd3f97549458"></a>
@@ -243,7 +229,13 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Draws the main menu over screen.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tbody><tr><td class="paramname">delta</td><td>Render time between frames.</td></tr>
+  </tbody></table>
+  </dd>
+</dl>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -266,31 +258,10 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Button to start new game</p>
+</div>
+</div>
 
-</div>
-</div>
-<a id="a789d455a971f13cd7d7be9499ec6030c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a789d455a971f13cd7d7be9499ec6030c">&#9670;&nbsp;</a></span>b_newGameStyle</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">TextButton.TextButtonStyle screens.MainMenu.b_newGameStyle</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="add4b46c4505ff0a0bd20295d3b15fea8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#add4b46c4505ff0a0bd20295d3b15fea8">&#9670;&nbsp;</a></span>b_quit</h2>
 
@@ -310,31 +281,10 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Quits game, returns user to desktop.</p>
+</div>
+</div>
 
-</div>
-</div>
-<a id="a83b7ac27710ca26c1f3af69188a521b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a83b7ac27710ca26c1f3af69188a521b2">&#9670;&nbsp;</a></span>b_quitStyle</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">TextButton.TextButtonStyle screens.MainMenu.b_quitStyle</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="aff9828c6baa40f4350f3e8466b94e7d0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aff9828c6baa40f4350f3e8466b94e7d0">&#9670;&nbsp;</a></span>b_volume</h2>
 
@@ -354,155 +304,10 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Allows user to modify game volume level.</p>
+</div>
+</div>
 
-</div>
-</div>
-<a id="a8f0622605af8f04f7dc17815cc82bfda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f0622605af8f04f7dc17815cc82bfda">&#9670;&nbsp;</a></span>b_volumeStyle</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">TextButton.TextButtonStyle screens.MainMenu.b_volumeStyle</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a93b3e25e2369c84f07c621ddd3100c90"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93b3e25e2369c84f07c621ddd3100c90">&#9670;&nbsp;</a></span>background</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Image screens.MainMenu.background</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a5b1ecbfa5387aa90ba6fceef9e3e8e16"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b1ecbfa5387aa90ba6fceef9e3e8e16">&#9670;&nbsp;</a></span>button</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">TextureRegionDrawable screens.MainMenu.button</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a8214d1195069ba5f5539a33963f0cf6c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8214d1195069ba5f5539a33963f0cf6c">&#9670;&nbsp;</a></span>font</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">BitmapFont screens.MainMenu.font = super.font</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a857f4464264ab0aa37647cf8b3723402"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a857f4464264ab0aa37647cf8b3723402">&#9670;&nbsp;</a></span>ping</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">final Sound screens.MainMenu.ping = Gdx.audio.newSound(Gdx.files.internal(&quot;Ping.mp3&quot;))</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a1ec0f3c21fe5e30dafc44ee19262ea5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1ec0f3c21fe5e30dafc44ee19262ea5f">&#9670;&nbsp;</a></span>stage</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Stage screens.MainMenu.stage</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="adb5e13b7e82f5bbe49c420377b6414f5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adb5e13b7e82f5bbe49c420377b6414f5">&#9670;&nbsp;</a></span>t_volume</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">TextureRegionDrawable screens.MainMenu.t_volume</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a8c81f9498babc478cf778c7907e41f63"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8c81f9498babc478cf778c7907e41f63">&#9670;&nbsp;</a></span>title</h2>
 
@@ -522,29 +327,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-</div>
-</div>
-<a id="a0e0133adcdb414b696b53737639eedf2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0e0133adcdb414b696b53737639eedf2">&#9670;&nbsp;</a></span>titleStyle</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">Label.LabelStyle screens.MainMenu.titleStyle</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">private</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
+<p>Game title.</p>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>

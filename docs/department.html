@@ -137,51 +137,9 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a8e2c57cc7fa4fd1e7ee01d1daaf77b4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Detailed Description</h2>
-<a id="a61150343b6bfa0ee5909a0a4ca9ffae2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61150343b6bfa0ee5909a0a4ca9ffae2">&#9670;&nbsp;</a></span>Department()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">com.uncreative.game.Department.Department </td>
-          <td>(</td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Integer&#160;</td>
-          <td class="paramname"><em>healCost</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Integer&#160;</td>
-          <td class="paramname"><em>upgradeStatCost</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="item.html">Item</a> []&#160;</td>
-          <td class="paramname"><em>items</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="location.html">Location</a>&#160;</td>
-          <td class="paramname"><em>location</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
+<div class="textblock">
+<p>Initialises a department building with a location on the map. Departments allow the player to upgrade and upgrade their ship and may contain items. Cannot be captured.</p>
+<p>Implements class Building.</p>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="aaae9ab7170d01536b862f02a79d3513a"></a>
@@ -209,7 +167,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Removes an item from the building inventory and adds it to the ship inventory for a certain amount of gold.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tbody><tr><td class="paramname">item</td><td>Item being purchased.</td></tr>
+	<tbody><tr><td class="paramname">ship</td><td>PlayerShip item is to be transferred to.</td></tr>
+  </tbody></table>
+  </dd>
+</dl>
 </div>
 </div>
 <a id="ad8ce292f9c40d6e81c59a7d74e0e9e1a"></a>
@@ -226,7 +191,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Returns gold cost of healing the PlayerShip.</p>
 </div>
 </div>
 <a id="a5629f5f7bd80d1081bc6bd00466dc080"></a>
@@ -292,7 +257,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Heals the PlayerShip for a certain amount of gold.
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tbody><tr><td class="paramname">ship</td><td>PlayerShip to be healed.</td></tr>
+	<tbody><tr><td class="paramname">amount</td><td>Gold required to heal ship.</td></tr>
+  </tbody></table>
+  </dd>
+</dl>
 </div>
 </div>
 <a id="a6cf2ec1d3ffd62697d415e9c80f6dd49"></a>
@@ -320,7 +292,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Removes item from PlayerShip and transfers it to Department in exchange for gold.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tbody><tr><td class="paramname">item</td><td>Item being sold.</td></tr>
+	<tbody><tr><td class="paramname">ship</td><td>PlayerShip to remove item from</td></tr>
+  </tbody></table>
+  </dd>
+</dl>
 </div>
 </div>
 <a id="af9b2f2d9e0e7436ab98984b6b30d0d3b"></a>
@@ -348,7 +327,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Upgrades a PlayerShip statistic (attack or defence) in exchange for gold.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tbody><tr><td class="paramname">ship</td><td>PlayerShip receiving upgrade.</td></tr>
+	<tbody><tr><td class="paramname">stat</td><td>Statistic to be upgraded.</td></tr>
+  </tbody></table>
+  </dd>
+</dl>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -371,7 +357,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Gold cost of healing.</p>
 </div>
 </div>
 <a id="a8b6510345097ad8f7d2086c80c8dd343"></a>
@@ -385,7 +371,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Items that Department contains.</p>
 </div>
 </div>
 <a id="a8e2c57cc7fa4fd1e7ee01d1daaf77b4e"></a>
@@ -407,7 +393,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Location of Department on map</p>
 </div>
 </div>
 <a id="a13fd4f0497dde8fd79713b2e0fe4fc77"></a>
@@ -421,7 +407,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Name of Department.</p>
 </div>
 </div>
 <a id="abe5aebbfa8871f3d403628f3ac2f3625"></a>
@@ -443,7 +429,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>How much gold a Department offers for an item in relation to item value (currently 0.5).</p>
 </div>
 </div>
 <a id="acd752e1c8135e0c07b3435636106556f"></a>
@@ -457,7 +443,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Gold cost of upgrading statistic.</p>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>

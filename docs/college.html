@@ -150,63 +150,9 @@ Private Attributes</h2></td></tr>
 <tr class="separator:aaa337f80eb452608aa155f2d67b21e37"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Detailed Description</h2>
-<a id="a5cb54cf0808a6c15d1e7a95e0f9bd02f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5cb54cf0808a6c15d1e7a95e0f9bd02f">&#9670;&nbsp;</a></span>College()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">com.uncreative.game.College.College </td>
-          <td>(</td>
-          <td class="paramtype">String&#160;</td>
-          <td class="paramname"><em>name</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Integer&#160;</td>
-          <td class="paramname"><em>hp</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Integer&#160;</td>
-          <td class="paramname"><em>goldOnCapture</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Integer&#160;</td>
-          <td class="paramname"><em>xpOnCapture</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">Boolean&#160;</td>
-          <td class="paramname"><em>captured</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">ArrayList&lt; <a class="el" href="buff.html">Buff</a> &gt;&#160;</td>
-          <td class="paramname"><em>buffs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="location.html">Location</a>&#160;</td>
-          <td class="paramname"><em>location</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
+<div class="textblock">
+<p>Initialises a College building with a location on the map. Can be captured and awards XP and gold if done so. Grants buffs to PlayerShip if they captured the college.</p>
+<p>Implements class Building.</p>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="afddd7a64f0af59a8de9a73be066dd0e1"></a>
@@ -223,7 +169,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Returns ArrayList (of type Buff) of buffs that college awards on capture.</p>
 </div>
 </div>
 <a id="a5917adfa691ea279131169acba2b2214"></a>
@@ -240,7 +186,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Returns whether or not the college has been captured and is still under control by the player.</p>
 </div>
 </div>
 <a id="a8c67a3b74dbe6b05a7ab2822d5af7fcf"></a>
@@ -257,7 +203,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Returns the amount of gold the player obtains for capturing the college.</p>
 </div>
 </div>
 <a id="a710bd6219693156a3aa5df7820468f0d"></a>
@@ -274,7 +220,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Returns whether or not the college is hostile to player.</p>
 </div>
 </div>
 <a id="aece7d7dbb432ea948ecdbc49f2714f4b"></a>
@@ -291,7 +237,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Returns the current health of college.</p>
 </div>
 </div>
 <a id="a46d02cc96809b0eb31a1d61489c70c5e"></a>
@@ -346,7 +292,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Returns amount of XP awarded when college is captured.</p>
 </div>
 </div>
 <a id="a86cdd01a32e507257c8d6024b3651dc5"></a>
@@ -364,7 +310,13 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Sets the college to captured and under the control of a given ship.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tbody><tr><td class="paramname">player</td><td>PlayerShip that the college is under control of.</td></tr>
+  </tbody></table>
+  </dd>
+</dl>
 </div>
 </div>
 <a id="ac9f097d950d1a7ab3eba7167c0a1a68f"></a>
@@ -392,7 +344,15 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>If current health value is lower than maximum health, sets college to hostile towards a given PlayerShip.</p>
+<p>If current health is less than or equal to zero, sets the college as captured.
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tbody><tr><td class="paramname">hp</td><td>Current health of college.</td></tr>
+	<tbody><tr><td class="paramname">player</td><td>PlayerShip to given control of college to should college drop below 0 health.</td></tr>
+  </tbody></table>
+  </dd>
+</dl>
 </div>
 </div>
 <a id="a8aeaf663cc5ff993f393e23bbfe6a590"></a>
@@ -409,7 +369,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Toggles whether or not college is hostile towards player.</p>
 </div>
 </div>
 <h2 class="groupheader">Member Data Documentation</h2>
@@ -424,7 +384,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>ArrayList (of type Buff) containing the buffs awarded by college.</p>
 </div>
 </div>
 <a id="ae42ebbf882980e7b8df7a0ab88ece869"></a>
@@ -446,7 +406,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Whether or not the college is captured.</p>
 </div>
 </div>
 <a id="a7614d379b25eb569fa6136e4921c133a"></a>
@@ -468,7 +428,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Amount of gold awarded on capture.</p>
 </div>
 </div>
 <a id="acf797aa27dd03aad9e9d3de1a50f2713"></a>
@@ -490,7 +450,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Whether or not the college is hostile towards player.</p>
 </div>
 </div>
 <a id="aaa337f80eb452608aa155f2d67b21e37"></a>
@@ -512,7 +472,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Health of college.</p>
 </div>
 </div>
 <a id="a82d98eed6373057f9219f9a45c11f69b"></a>
@@ -526,7 +486,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>Location of college on map.</p>
 </div>
 </div>
 <a id="a0392d3f4bb0662ddcf3c145eb04d2276"></a>
@@ -548,7 +508,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Name of college.</p>
 </div>
 </div>
 <a id="a7cadf2bf2afa3f11114a2f0898ace52f"></a>
@@ -562,7 +522,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<p>ArrayList (of type Ship) containing all ships affiliated with college.</p>
 </div>
 </div>
 <a id="a4f8c2122e89c2051405a9490c0c14bce"></a>
@@ -584,7 +544,7 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
+<p>Amount of XP awarded on capture.</p>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
