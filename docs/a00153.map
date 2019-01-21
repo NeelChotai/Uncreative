@@ -1,0 +1,8 @@
+<map id="com.uncreative.game.PlayerShip" name="com.uncreative.game.PlayerShip">
+<area shape="rect" id="node1" title=" " alt="" coords="919,98,1131,124"/>
+<area shape="rect" id="node2" href="$ship.html" title=" " alt="" coords="15,46,190,72"/>
+<area shape="rect" id="node5" href="$location.html" title=" " alt="" coords="297,111,496,138"/>
+<area shape="rect" id="node3" href="$college.html" title=" " alt="" coords="597,159,789,186"/>
+<area shape="rect" id="node4" href="$building.html" title=" " alt="" coords="5,152,200,179"/>
+<area shape="rect" id="node6" href="$inventory.html" title=" " alt="" coords="593,210,793,236"/>
+</map>

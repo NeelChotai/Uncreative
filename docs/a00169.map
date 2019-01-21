@@ -1,0 +1,10 @@
+<map id="screens.GameScreen" name="screens.GameScreen">
+<area shape="rect" id="node1" title=" " alt="" coords="1219,110,1367,137"/>
+<area shape="rect" id="node2" href="$piratescreen.html" title=" " alt="" coords="951,89,1098,115"/>
+<area shape="rect" id="node3" href="$playership.html" title=" " alt="" coords="919,139,1131,166"/>
+<area shape="rect" id="node4" href="$ship.html" title=" " alt="" coords="15,87,190,114"/>
+<area shape="rect" id="node7" href="$location.html" title=" " alt="" coords="297,153,496,179"/>
+<area shape="rect" id="node5" href="$college.html" title=" " alt="" coords="597,201,789,227"/>
+<area shape="rect" id="node6" href="$building.html" title=" " alt="" coords="5,194,200,221"/>
+<area shape="rect" id="node8" href="$inventory.html" title=" " alt="" coords="593,251,793,278"/>
+</map>

@@ -1,0 +1,4 @@
+<map id="screens.MainMenu" name="screens.MainMenu">
+<area shape="rect" id="node1" title=" " alt="" coords="13,80,145,107"/>
+<area shape="rect" id="node2" href="$piratescreen.html" title=" " alt="" coords="5,5,152,32"/>
+</map>
