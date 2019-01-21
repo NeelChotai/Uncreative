@@ -364,14 +364,13 @@ public class GameScreen extends PirateScreen{
 
     private void movePlayer(PlayerShip ship, Pirates.dir direction) {
         moveShip(ship, direction);
-        System.out.println(player.location.building == null ? "": player.location.building.getName());
         if(player.location.building instanceof Department) {//Department
             interactingWithDepartment = true;
             showDepartmentUI();
         } else {
             interactingWithDepartment = false;
         }
-        player.addXP(5*(1+turns/50));
+        player.addXP(5*(1+turnsOutOfCombat/50));
         endTurn();
     }
 
@@ -417,7 +416,7 @@ public class GameScreen extends PirateScreen{
 
     }
 
-    private void moveShip(Ship ship, Pirates.dir direction) {//Sprite[] sprites = {up, right, down, left}
+    private void moveShip(Ship ship, Pirates.dir direction) {
             ship.move(direction);
             switch (direction) {
                 case N:
